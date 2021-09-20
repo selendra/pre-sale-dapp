@@ -33,6 +33,7 @@ export default function Home() {
   }
 
   const handleContrib = async() => {
+    if(!amount) message.error('Invalid amount!')
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const accounts = provider.listAccounts();

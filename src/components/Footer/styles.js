@@ -12,8 +12,15 @@ export const Container = styled.div`
   margin: auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `
 export const Logo = styled.img`
   height: 50px;
   width: auto;
+`
+
+export const Social = styled.div`
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 20px;
 `
