@@ -6,7 +6,7 @@ import abi from '../contract/presale.json';
 
 export default function Order() {
   let signer;
-  const contractAddress = '0x434bcF8bA7076d523aBC55b687e0b7e8DEd70FDe';
+  const contractAddress = '0x0Cc4FaF8DA3e278805830879CA776A3f9872D7aF';
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
   const columns = [

@@ -10,7 +10,7 @@ export default function Info() {
   const [remainToken, setRemainToken] = useState('');
   const [tokenRaised, setTokenraised] = useState('');
   const [tokenSold, setTokenSold] = useState('');
-  const contractAddress = '0x434bcF8bA7076d523aBC55b687e0b7e8DEd70FDe';
+  const contractAddress = '0x0Cc4FaF8DA3e278805830879CA776A3f9872D7aF';
 
   const Fetch = async() => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -46,7 +46,7 @@ export default function Info() {
           <Col span={10}>
             <Background>
               <span>Tokens Raised</span>
-              <p>10,000,000</p>
+              <p>{Number(tokenSold) + Number(remainToken)}</p>
             </Background>
           </Col>
           <Col span={10}>
