@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { Button, Table } from "antd";
+import { Button, message, Table } from "antd";
 import styled from "styled-components";
 import abi from '../contract/presale.json';
 
@@ -59,7 +59,7 @@ export default function Order() {
           signer
         )
 
-        const data = await contract.investorOrderIds(accounts[0]);
+        const data = await contract.investorOrderIds(accounts[0])
         
         data.map(async(i) => {
           const data = await contract.orders(i._hex);
@@ -70,6 +70,7 @@ export default function Order() {
             release_on_block: parseInt(data.releaseOnBlock._hex),
             claim: (data.claimed).toString(),
           }
+          // console.log(order_hex)
           setOrders(prevItem => [...prevItem, object]);
         })
         setLoading(false)
@@ -82,18 +83,22 @@ export default function Order() {
   const claimToken = async(id) => {
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      provider.listAccounts()
-      .then(async function(accounts) {
-        signer = provider.getSigner(accounts[0]);
-        const contract = new ethers.Contract(
-          contractAddress,
-          abi,
-          signer
-        )
-        const data = await contract.redeem(id);
-      });
+      const accounts = provider.listAccounts();
+      
+      signer = provider.getSigner(accounts[0]);
+      const contract = new ethers.Contract(
+        contractAddress,
+        abi,
+        signer
+      )
+
+      await contract.redeem(id);
+      
     } catch(err) {
-      console.log(err)
+      if(err.code === 4001) message.error('The request was rejected!');
+      if(err.code === -32603) {
+        if(err.data.code === 3) message.error('Tokens is still in locked!');
+      }
     }
   }
 

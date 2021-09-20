@@ -35,21 +35,24 @@ export default function Home() {
   const handleContrib = async() => {
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      provider.listAccounts()
-      .then(async function(accounts) {
-        signer = provider.getSigner(accounts[0]);
-        const contract = new ethers.Contract(
-          contractAddress,
-          abi,
-          signer
-        )
+      const accounts = provider.listAccounts();
+      
+      signer = provider.getSigner(accounts[0]);
+      const contract = new ethers.Contract(
+        contractAddress,
+        abi,
+        signer
+      )
 
-        const data = await contract.order(slippage, {
-          value: ethers.utils.parseUnits(amount, 18)
-        })
-      });
+      const data = await contract.order(slippage, {
+        value: ethers.utils.parseUnits(amount, 18)
+      })
     } catch (err) {
-      console.log(err)
+      if(err.code === 4001) message.error('The request was rejected!');
+      if(err.code === -32603) {
+        if(err.data.code === -32000) message.error('Invalid Input!');
+        if(err.data.code === 3) message.error('Less than mininum investment!');
+      }
     }
   }
 
@@ -173,7 +176,8 @@ const BtnContribute = styled(Button)`
   width: 100%;
   background: transparent;
   color: #f5f5f5;
-  :hover {
+  :hover,
+  :focus {
     background-color: transparent;
     border-color: rgb(90, 196, 190);
     color: rgb(90, 196, 190);
