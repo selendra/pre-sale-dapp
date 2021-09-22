@@ -39,6 +39,19 @@ const GlobalStyles = createGlobalStyle`
   .ant-modal-title {
     color: #f1f1f5;
   }
+
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    background-color: transparent;
+    border: none;
+  }
+  .ant-select-item-option:hover,
+  .ant-select-item-option-active:not(.ant-select-item-option-disabled),
+  .ant-select-item .ant-select-item-option .custom-option .ant-select-item-option-active   {
+    background: #283871;
+  }
+  .ant-select-arrow {
+    color: #fff;
+  }
 `;
 
 export default GlobalStyles;
