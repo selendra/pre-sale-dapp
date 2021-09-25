@@ -1,10 +1,9 @@
-import styled from "styled-components"
+import styled, { keyframes } from "styled-components"
 import { 
   Button, 
   Card, 
   Form, 
-  Input, 
-  Select 
+  Input
 } from "antd"
 
 export const Container = styled.div`
@@ -14,18 +13,21 @@ export const Container = styled.div`
   padding: 14rem 0;
 `
 export const CardStyled = styled(Card)`
-  border: 1px solid rgb(90, 196, 190);
-  background-color: transparent;
-  border-radius: 5px;
+  border: none;
+  background-color: #1a2843;
+  border-radius: 16px;
 `
 export const FormItem = styled(Form.Item)`
   display: flex;
   background: #000829;
-  border-radius: 4px;
+  border-radius: 16px;
   label {
     font-weight: 700;
     color: #85858D;  
     padding: 10px;
+  }
+  input {
+    border-radius: 16px;
   }
 `
 export const InputStyled = styled(Input)`
@@ -41,18 +43,47 @@ export const InputStyled = styled(Input)`
     box-shadow: none!important;
   }
 `
-export const BtnContribute = styled(Button)`
-  border: 1px solid rgb(90, 196, 190);
-  border-radius: 5px;
-  height: 50px;
-  width: 100%;
-  background: transparent;
-  color: #f5f5f5;
-  :hover,
-  :focus {
-    background-color: transparent;
-    border-color: rgb(90, 196, 190);
-    color: rgb(90, 196, 190);
+const effect = keyframes`
+  100% {
+    transform: rotate(360deg);
+  }
+`
+export const BtnContribute = styled.div`
+  position: relative;
+  width: 352px;
+  height: 55px;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &:before {
+    content: "";
+    position: absolute;
+    width: 355px;
+    height: 355px;
+    background: conic-gradient(#F49D09, #fac66b);
+    animation: ${effect} 1.3s ease infinite;
+    transition: 1s ease;
+  }
+  a {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    width: 345px;
+    height: 50px;
+    color: #fff;
+    background: #111730;
+    text-align: center;
+    text-decoration: none;
+    line-height: 52px;
+    border-radius: 16px;
+    :hover {
+      color: #fac66b;
+    }
   }
 `
 export const BtnSelect = styled(Button)`

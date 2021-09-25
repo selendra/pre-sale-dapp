@@ -16,7 +16,7 @@ const GlobalStyles = createGlobalStyle`
   body {
     font-family: ${props => props.theme.fonts.main};
     font-size: 1.6rem;
-    background: ${props => props.theme.colors.background1};
+    background: ${({theme}) => theme.colors.background1};
     color: ${props => props.theme.colors.primary1};
     cursor: default;
   }
@@ -51,6 +51,9 @@ const GlobalStyles = createGlobalStyle`
   }
   .ant-select-arrow {
     color: #fff;
+  }
+  .ant-modal-close-x {
+    color: #f1f1f2;
   }
 `;
 

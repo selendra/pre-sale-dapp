@@ -7,7 +7,7 @@ export default {
   // Colors for layout
   colors: {
     primary1: "#f5f5f5",
-    background1: "#131a35",
+    background1: "#131A35",
     accent1: "hsl(34.9,98.6%,72.9%)",
     button: "hsl(205.1,100%,36.1%)",
     background2: "hsl(232.7,27.3%,23.7%)",

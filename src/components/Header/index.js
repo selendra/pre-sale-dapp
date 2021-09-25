@@ -1,11 +1,18 @@
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import { message } from "antd";
 import { ethers } from "ethers";
-import { Wrapper, Container, Logo, HeaderItems, Item, BtnConnect } from "./styles";
+import { 
+  Wrapper, 
+  Container, 
+  Logo, 
+  HeaderItems, 
+  Item, 
+  BtnConnect 
+} from "./styles";
 import bitriel from '../../assets/bitriel.png';
 import metamask from '../../assets/metamask.webp';
 import bnb from '../../assets/bnb.png';
-import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 
 export default function Header() {
   const [balance, setBalance] = useState('');
@@ -44,23 +51,24 @@ export default function Header() {
           />
         </NavLink>
         <HeaderItems>
-          <Item to='/order'>Order</Item>
-          <Item to='/info'>Info</Item>
-          <BtnConnect type='ghost' onClick={handleConnect}>
-            {
-              balance ? (
-                <div>
-                  <img src={bnb} alt='bnb' width='24' height='24' />
-                  <span style={{marginLeft: '4px'}}>{Number(balance).toFixed(3)}</span>
-                </div>
-              ) : (
-                <div>
-                  <img src={metamask} alt='metamask' width='24' height='24' /> Connect Wallet
-                </div>
-              )
-            }
-          </BtnConnect>
+          <Item to='/'>Contribute</Item>
+          <Item to='/order'>Activity</Item>
+          <Item to='/info'>Status</Item>
         </HeaderItems>
+        <BtnConnect type='ghost' onClick={handleConnect}>
+          {
+            balance ? (
+              <div>
+                <img src={bnb} alt='bnb' width='24' height='24' />
+                <span style={{marginLeft: '4px'}}>{Number(balance).toFixed(3)}</span>
+              </div>
+            ) : (
+              <div>
+                <img src={metamask} alt='metamask' width='24' height='24' /> Connect Wallet
+              </div>
+            )
+          }
+        </BtnConnect>
       </Container>
     </Wrapper>
   )

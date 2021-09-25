@@ -24,6 +24,8 @@ import { Context } from "context/contex"
 import abi from 'contract/presale.json'
 import SelectToken from "components/SelectToken"
 import DiscountRateInfo from "components/DiscountRateInfo"
+import Spinner from "react-spinkit"
+import { ErrorHandling } from "utils/errorHandling"
 
 export default function Home() {
   const contractAddress = '0x0Cc4FaF8DA3e278805830879CA776A3f9872D7aF';
@@ -90,8 +92,7 @@ export default function Home() {
         )
       }
     } catch (err) {
-      if(err.code === 4001) message.error('The request was rejected!');
-      if(err.code === -32603) message.error(err.data.message);
+      ErrorHandling(err);
     }
   }
 
@@ -135,13 +136,13 @@ export default function Home() {
       }, 2000);
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      ErrorHandling(error);
     }
   }
 
-
   const handleContribute = () => {
-    if(!amount) message.error('Invalid amount!');
+    if(!amount) return message.error('Invalid amount!');
+    if(!selectedToken) return message.error('Please select a token');
     handleOrder();
   }
 
@@ -154,8 +155,7 @@ export default function Home() {
         onCancel={()=>setModal(false)}
       >
         <div>
-          <Text>Discount Rate</Text>
-          <br/>
+          <Text>Discount Rate</Text><br/>
           <Row>
             <Col span={6} offset={1}>
               <BtnSelect onClick={()=>setSlippage('10')}>10%</BtnSelect>
@@ -199,7 +199,11 @@ export default function Home() {
               <Text>{slippage}%</Text>
             </Col>
           </Row>
-          <BtnContribute loading={loading} onClick={handleContribute}>Contribute</BtnContribute>
+          <BtnContribute onClick={handleContribute}>
+            <a>
+              { loading ? <Spinner name='circle' color='#fac66b' /> : 'Contribute' }
+            </a>
+          </BtnContribute>
         </Form>
       </CardStyled>
       <Subtitle>How it works?</Subtitle>
