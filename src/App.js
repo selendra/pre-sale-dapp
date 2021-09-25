@@ -8,7 +8,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Home from "./pages/home/index";
 import Info from "./pages/info";
-import Order from "./pages/order";
+import Order from "./pages/order/index";
 
 export default function App() {
   return (

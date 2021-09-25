@@ -39,7 +39,6 @@ const GlobalStyles = createGlobalStyle`
   .ant-modal-title {
     color: #f1f1f5;
   }
-
   .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     background-color: transparent;
     border: none;
