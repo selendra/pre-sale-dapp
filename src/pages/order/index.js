@@ -19,6 +19,11 @@ export default function Order() {
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
 
+  const TimeConverter = (timestamp) => {
+    const date = new Date(1632675306 * 1000).toLocaleString("en-US", {timeZoneName: "short"})
+    return date;
+  } 
+
   const getOrder = () => {
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -39,7 +44,7 @@ export default function Order() {
             order_id: parseInt(i._hex),
             order_hex: i._hex,
             amount: ethers.utils.formatUnits(data.amount._hex, 18),
-            release_on_block: parseInt(data.releaseOnBlock._hex),
+            release_on_block: TimeConverter(parseInt(data.releaseOnBlock._hex)),
             claim: (data.claimed).toString(),
           }
           setOrders(prevItem => [...prevItem, object]);
@@ -83,23 +88,30 @@ export default function Order() {
             <Row justify='center'> 
               <Spinner name='circle' color='#fac66b' /> 
             </Row>
-          ) : (
-            orders.map((i) => 
-              <CollapseStyled key={i.order_id}>
-                <Collapse.Panel header={`Order ID: ${i.order_id}`} bordered={false} key={i.order_id}>
-                  <p>Amount: {i.amount}</p>
-                  <p>Release on block: {i.release_on_block}</p>
-                  { 
-                    (i.claim === "true") ? (
-                      <BtnClaim type='ghost'>Claimed</BtnClaim>
-                    ) : (
-                      <BtnClaim type='ghost' onClick={() => claimToken(i.order_hex)}>Claim</BtnClaim>
-                    ) 
-                  }
-                </Collapse.Panel>
-              </CollapseStyled>
-            )
-          )
+          ) : (orders.length === 0) ? 
+              <Empty 
+                description={
+                  <span>
+                    No Activity Yet
+                  </span>
+                }
+              /> : 
+              orders.map((i) => 
+                <CollapseStyled key={i.order_id}>
+                  <Collapse.Panel header={`Order ID: ${i.order_id}`} bordered={false} key={i.order_id}>
+                    <p>Amount: {i.amount}</p>
+                    <p>Release on: {i.release_on_block}</p>
+                    { 
+                      (i.claim === "true") ? (
+                        <BtnClaim type='ghost'>Claimed</BtnClaim>
+                      ) : (
+                        <BtnClaim type='ghost' onClick={() => claimToken(i.order_hex)}>Claim</BtnClaim>
+                      ) 
+                    }
+                  </Collapse.Panel>
+                </CollapseStyled>
+              )
+          
         }
       </CardStyled>
     </Container>

@@ -19,6 +19,7 @@ import {
   Text
 } from "./styled"
 import { ReactComponent as Cog } from 'assets/cog.svg'
+import { ReactComponent as Swap } from 'assets/swap.svg'
 
 import { Context } from "context/contex"
 import abi from 'contract/presale.json'
@@ -98,7 +99,7 @@ export default function Home() {
 
   async function approve(tokenAddress) {
     try {
-      setLoading(true);
+      // setLoading(true);
       let abi = [
         "function approve(address _spender, uint256 _value) public returns (bool success)",
       ];
@@ -126,6 +127,7 @@ export default function Home() {
               PendingApprove();
             }, 2000);
           } else if(result !== null || !error) { 
+            console.log(result)
             handleOrder();
           }
         })
@@ -190,6 +192,16 @@ export default function Home() {
             />
             <SelectToken />
           </FormItem>
+          {/* <Row justify='center'>
+            <Swap />
+          </Row>
+          <FormItem label={'Balance: ' + Number(selectedTokenBalance).toFixed(3)}>
+            <InputStyled 
+              placeholder="0.00" 
+              value={amount} 
+              onChange={(e) => setAmount(e.target.value)} 
+            />
+          </FormItem> */}
           <Row justify='space-between' style={{paddingBottom: '20px'}}>
             <Col style={{display: 'flex'}}>
               <Text>Discount Rate</Text> 
