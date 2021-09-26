@@ -10,7 +10,7 @@ export default function Info() {
   const [tokenRaised, setTokenraised] = useState('');
   const [tokenSold, setTokenSold] = useState('');
   const [tokenPrice, setTokenPrice] = useState('');
-  const contractAddress = '0x0Cc4FaF8DA3e278805830879CA776A3f9872D7aF';
+  const contractAddress = '0x9EbCf5d384FF361691c1e2C1552347d5Ce0ff5F4';
 
   const Fetch = async() => {
     try {
@@ -31,7 +31,7 @@ export default function Info() {
 
       setRemainToken(ethers.utils.formatUnits((remaining[0]._hex), 18));
       setTokenSold(ethers.utils.formatUnits((sold[0]._hex), 18));
-      setTokenPrice(price[0]._hex);
+      setTokenPrice(parseInt(price[0]._hex));
     } catch (err) {
       ErrorHandling(err);
     }
