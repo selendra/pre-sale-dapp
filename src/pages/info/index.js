@@ -27,20 +27,20 @@ export default function Info() {
       const remaining = await contract.functions.remainingTokens();
       const sold = await contract.functions.totalDistributed();
       const price = await contract.functions.getPrice();
-      console.log(remaining)
 
       setRemainToken(ethers.utils.formatUnits((remaining[0]._hex), 18));
       setTokenSold(ethers.utils.formatUnits((sold[0]._hex), 18));
-      setTokenPrice(parseInt(price[0]._hex));
+      setTokenPrice(ethers.utils.formatUnits(price[0]._hex, 12));
     } catch (err) {
       ErrorHandling(err);
     }
   }
 
-  console.log(ethers.utils.formatUnits('37084809765', 18))
-
   useEffect(() => {
-    Fetch();
+    setTimeout(() => {
+      Fetch();
+      
+    }, 2000);
   },[])
 
   return (
@@ -50,13 +50,13 @@ export default function Info() {
           <Col md={10} lg={7}>
             <CardStyled>
               <SubTitle>Token Sold</SubTitle>
-              <Text>$ 1,469,516,793</Text>
+              <Text>$ {Number(tokenSold) * Number(tokenPrice)}</Text>
             </CardStyled>
           </Col>  
           <Col lg={7}>
             <CardStyled>
               <SubTitle>Token Remaining</SubTitle>
-              <Text>{remainToken}</Text>
+              <Text>{Number(remainToken).toFixed(3)} SEL</Text>
             </CardStyled>
           </Col>  
           <Col lg={7}>
