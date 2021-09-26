@@ -37,10 +37,7 @@ export default function Info() {
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      Fetch();
-      
-    }, 2000);
+    Fetch();
   },[])
 
   return (
