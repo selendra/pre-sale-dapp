@@ -65,7 +65,6 @@ export default function Order() {
       )
 
       await contract.redeem(id);
-      
     } catch(err) {
       ErrorHandling(err);
     }
@@ -90,9 +89,13 @@ export default function Order() {
                 <Collapse.Panel header={`Order ID: ${i.order_id}`} bordered={false} key={i.order_id}>
                   <p>Amount: {i.amount}</p>
                   <p>Release on block: {i.release_on_block}</p>
-                  <BtnClaim type='ghost' onClick={() => claimToken(i.order_hex)}>
-                    { (i.claim === true) ? 'Claim' : 'Claimed' }
-                  </BtnClaim>
+                  { 
+                    (i.claim === "true") ? (
+                      <BtnClaim type='ghost'>Claimed</BtnClaim>
+                    ) : (
+                      <BtnClaim type='ghost' onClick={() => claimToken(i.order_hex)}>Claim</BtnClaim>
+                    ) 
+                  }
                 </Collapse.Panel>
               </CollapseStyled>
             )

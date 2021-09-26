@@ -14,7 +14,7 @@ export const Container = styled.div`
 `
 export const CardStyled = styled(Card)`
   border: none;
-  background-color: #1a2843;
+  background-color: #111730;
   border-radius: 16px;
 `
 export const FormItem = styled(Form.Item)`

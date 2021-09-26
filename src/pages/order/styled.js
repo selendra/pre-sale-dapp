@@ -36,8 +36,8 @@ export const CollapseStyled = styled(Collapse)`
   }
   .ant-collapse-item > .ant-collapse-header {
     color: #fff;
-    height: 60px;
-    line-height: 35px;
+    height: 70px;
+    line-height: 45px;
   }
   .ant-collapse-content {
     background-color: #0D1225;
