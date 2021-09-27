@@ -5,6 +5,7 @@ export const Context = createContext();
 export const ContextProvider = ({children}) => {
   const [selectedToken, setSelectedToken] = useState('');
   const [selectedTokenBalance, setSelectedTokenBalance] = useState('');
+  const [selectedTokenPrice, setSelectedTokenPrice] = useState(1);
 
   let abi = [
     "function balanceOf(address _owner) public view returns (uint256)",
@@ -19,7 +20,6 @@ export const ContextProvider = ({children}) => {
         let balance = await provider.getBalance(accounts[0]);
         setSelectedTokenBalance(ethers.utils.formatEther(balance));
       } else {
-        const contractAddress = '0x0Cc4FaF8DA3e278805830879CA776A3f9872D7aF';
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const accounts = await provider.listAccounts();
         
@@ -46,8 +46,10 @@ export const ContextProvider = ({children}) => {
     <Context.Provider
       value={{
         selectedToken,
+        selectedTokenPrice,
+        selectedTokenBalance,
         setSelectedToken,
-        selectedTokenBalance
+        setSelectedTokenPrice
       }}
     >{children}</Context.Provider>
   )

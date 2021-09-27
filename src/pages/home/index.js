@@ -5,7 +5,6 @@ import {
   Col, 
   Form, 
   message, 
-  Modal, 
   Row, 
 } from "antd"
 import { 
@@ -16,10 +15,12 @@ import {
   FormItem,
   InputStyled,
   Subtitle,
-  Text
+  Text,
+  ModalStyled
 } from "./styled"
 import { ReactComponent as Cog } from 'assets/cog.svg'
 import { ReactComponent as Swap } from 'assets/swap.svg'
+import SEL from 'assets/sel.png'
 
 import { Context } from "context/contex"
 import abi from 'contract/presale.json'
@@ -30,7 +31,7 @@ import { ErrorHandling } from "utils/errorHandling"
 
 export default function Home() {
   const contractAddress = '0x9EbCf5d384FF361691c1e2C1552347d5Ce0ff5F4';
-  const { selectedToken, selectedTokenBalance } = useContext(Context);
+  const { selectedToken, selectedTokenBalance, selectedTokenPrice } = useContext(Context);
 
   const [amount, setAmount] = useState('');
   const [slippage, setSlippage] = useState('10');
@@ -148,9 +149,21 @@ export default function Home() {
     handleOrder();
   }
 
+  const EstimateSEL = (amount) => {
+    if(slippage === '10') {
+      return ((amount * selectedTokenPrice) / 0.027);
+    } 
+    if(slippage === '20') {
+      return ((amount * selectedTokenPrice) / 0.025);
+    }
+    if(slippage === '30') {
+      return ((amount * selectedTokenPrice) / 0.021);
+    }
+  }
+
   return (
     <Container>
-      <Modal
+      <ModalStyled
         visible={modal}
         title='Settings'
         footer=''
@@ -169,8 +182,17 @@ export default function Home() {
               <BtnSelect onClick={()=>setSlippage('30')}>30%</BtnSelect>
             </Col>
           </Row>
+          <Row style={{marginTop: '15px'}}>
+            <Col span={12} offset={1}>
+            <ul>
+              <li>1 year vesting: 10% discount</li>
+              <li>2 year vesting: 20% discount</li>
+              <li>3 year vesting: 30% discount</li>
+            </ul>
+            </Col>
+          </Row>
         </div>
-      </Modal>
+      </ModalStyled>
       <Row justify='space-between' align='middle'>
         <Col>
           <Subtitle>Contribute</Subtitle>
@@ -186,22 +208,30 @@ export default function Home() {
         <Form layout="vertical" color="white">
           <FormItem label={'Balance: ' + Number(selectedTokenBalance).toFixed(3)}>
             <InputStyled 
-              placeholder="0.00" 
-              value={amount} 
-              onChange={(e) => setAmount(e.target.value)} 
+              placeholder="0.00"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              autoFocus
             />
             <SelectToken />
           </FormItem>
-          {/* <Row justify='center'>
-            <Swap />
+          <Row justify='center'>
+            <Swap style={{marginBottom: '20px'}}/>
           </Row>
-          <FormItem label={'Balance: ' + Number(selectedTokenBalance).toFixed(3)}>
+          <FormItem label='To (estimated)'>
             <InputStyled 
               placeholder="0.00" 
-              value={amount} 
-              onChange={(e) => setAmount(e.target.value)} 
+              value={EstimateSEL(amount).toFixed(2)}
             />
-          </FormItem> */}
+            <div style={{width: '35%', display: 'inline'}} >
+              <img 
+                src={SEL}
+                width= 'auto'
+                height= '32'
+              />
+              <span style={{color: '#fff', marginLeft: '10px'}}>SEL</span>
+            </div>
+          </FormItem>
           <Row justify='space-between' style={{paddingBottom: '20px'}}>
             <Col style={{display: 'flex'}}>
               <Text>Discount Rate</Text> 

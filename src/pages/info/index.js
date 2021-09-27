@@ -30,7 +30,7 @@ export default function Info() {
 
       setRemainToken(ethers.utils.formatUnits((remaining[0]._hex), 18));
       setTokenSold(ethers.utils.formatUnits((sold[0]._hex), 18));
-      setTokenPrice(ethers.utils.formatUnits(price[0]._hex, 12));
+      setTokenPrice(ethers.utils.formatUnits(price[0]._hex, 8));
     } catch (err) {
       ErrorHandling(err);
     }
@@ -47,19 +47,19 @@ export default function Info() {
           <Col md={10} lg={7}>
             <CardStyled>
               <SubTitle>Token Sold</SubTitle>
-              <Text>$ {Number(tokenSold) * Number(tokenPrice)}</Text>
+              <Text>$ {Number(tokenSold) * 0.027}</Text>
             </CardStyled>
-          </Col>  
+          </Col>
           <Col lg={7}>
             <CardStyled>
               <SubTitle>Token Remaining</SubTitle>
               <Text>{Number(remainToken).toFixed(3)} SEL</Text>
             </CardStyled>
-          </Col>  
+          </Col>
           <Col lg={7}>
             <CardStyled>
               <SubTitle>Token Price</SubTitle>
-              <Text>{tokenPrice}</Text>
+              <Text>$ 0.027</Text>
             </CardStyled>
           </Col>  
         </Row>       

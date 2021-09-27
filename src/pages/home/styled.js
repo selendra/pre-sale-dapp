@@ -3,7 +3,8 @@ import {
   Button, 
   Card, 
   Form, 
-  Input
+  Input,
+  Modal
 } from "antd"
 
 export const Container = styled.div`
@@ -109,4 +110,13 @@ export const Text = styled.p`
   color: #f1f1f2;
   display: flex;
   margin: 0 10px;
+`
+export const ModalStyled = styled(Modal)`
+  border-radius: 16px;
+  .ant-modal-content {
+    border-radius: 16px;
+  }
+  .ant-modal-header {
+    border-radius: 16px 16px 0 0;
+  }
 `

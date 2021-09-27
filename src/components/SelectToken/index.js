@@ -1,6 +1,8 @@
 import { useContext } from "react"
+import { ethers } from "ethers"
 import { Context } from "context/contex"
 import { SortOption, SortSelect } from "./styled"
+import abi from 'contract/presale.json'
 import bnb from 'assets/bnb.png'
 import busd from 'assets/busd.png'
 import usdt from 'assets/usdt.png'
@@ -8,7 +10,8 @@ import dai from 'assets/dai.png'
 import eth from 'assets/eth.png'
 
 export default function SelectToken() {
-  const { setSelectedToken } = useContext(Context);
+  const contractAddress = '0x9EbCf5d384FF361691c1e2C1552347d5Ce0ff5F4';
+  const { setSelectedToken, setSelectedTokenPrice } = useContext(Context);
   const supportedTokens = [
     {
       tokenAddress: "0xeD24FC36d5Ee211Ea25A80239Fb8C4Cfd80f12Ee", // BUSD
@@ -28,8 +31,27 @@ export default function SelectToken() {
     }
   ]
 
-  const handleSelectToken = (value) => {
+  const handleSelectToken = async(value) => {
     setSelectedToken(value);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const accounts = await provider.listAccounts();
+    
+    let signer = provider.getSigner(accounts[0]);
+    let Contract = new ethers.Contract(
+      contractAddress,
+      abi,
+      signer
+    );
+
+    if(value === 'bnb') {
+      const data = await Contract.getPrice();
+      const price = Number(ethers.utils.formatUnits(data, 8));
+      setSelectedTokenPrice(price);
+    } else {
+      const data = await Contract.getPriceToken(value);
+      const price = Number(ethers.utils.formatUnits(data, 8));
+      setSelectedTokenPrice(price);
+    }
   }
   return (
     <SortSelect 
