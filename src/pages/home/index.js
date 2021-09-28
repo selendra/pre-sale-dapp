@@ -18,19 +18,22 @@ import {
   Text,
   ModalStyled
 } from "./styled"
-import { ReactComponent as Cog } from 'assets/cog.svg'
-import { ReactComponent as Swap } from 'assets/swap.svg'
-import SEL from 'assets/sel.png'
-
-import { Context } from "context/contex"
-import abi from 'contract/presale.json'
+import Spinner from "react-spinkit"
 import SelectToken from "components/SelectToken"
 import DiscountRateInfo from "components/DiscountRateInfo"
-import Spinner from "react-spinkit"
+
+import { Context } from "context/contex"
+
+import abi from 'contract/presale.json'
+import SEL from 'assets/sel.png'
+import { ReactComponent as Cog } from 'assets/cog.svg'
+import { ReactComponent as Swap } from 'assets/swap.svg'
+
+
 import { ErrorHandling } from "utils/errorHandling"
 
 export default function Home() {
-  const contractAddress = '0x9EbCf5d384FF361691c1e2C1552347d5Ce0ff5F4';
+  const contractAddress = '0xE0b8d681F8b26F6D897CC3922be0357C9116A852';
   const { selectedToken, selectedTokenBalance, selectedTokenPrice } = useContext(Context);
 
   const [amount, setAmount] = useState('');
@@ -128,7 +131,7 @@ export default function Home() {
               PendingApprove();
             }, 2000);
           } else if(result !== null || !error) { 
-            console.log(result)
+            console.log(result);
             handleOrder();
           }
         })
@@ -219,18 +222,21 @@ export default function Home() {
             <Swap style={{marginBottom: '20px'}}/>
           </Row>
           <FormItem label='To (estimated)'>
-            <InputStyled 
-              placeholder="0.00" 
-              value={EstimateSEL(amount).toFixed(2)}
-            />
-            <div style={{width: '35%', display: 'inline'}} >
-              <img 
-                src={SEL}
-                width= 'auto'
-                height= '32'
+            <Row justify='space-between' align='middle'>
+              <InputStyled 
+                readOnly
+                placeholder="0.00" 
+                value={EstimateSEL(amount).toFixed(2)}
               />
-              <span style={{color: '#fff', marginLeft: '10px'}}>SEL</span>
-            </div>
+              <div style={{width: '35%', display: 'inline'}} >
+                <img 
+                  src={SEL}
+                  width= 'auto'
+                  height= '32'
+                />
+                <span style={{color: '#fff', marginLeft: '10px'}}>SEL</span>
+              </div>
+            </Row>
           </FormItem>
           <Row justify='space-between' style={{paddingBottom: '20px'}}>
             <Col style={{display: 'flex'}}>
