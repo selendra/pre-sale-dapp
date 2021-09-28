@@ -8,9 +8,7 @@ import { ErrorHandling } from 'utils/errorHandling'
 export default function Info() {
   const contractAddress = '0xE0b8d681F8b26F6D897CC3922be0357C9116A852';
   const [remainToken, setRemainToken] = useState('');
-  const [tokenRaised, setTokenraised] = useState('');
   const [tokenSold, setTokenSold] = useState('');
-  const [tokenPrice, setTokenPrice] = useState('');
 
   const Fetch = async() => {
     try {
@@ -26,11 +24,9 @@ export default function Info() {
 
       const remaining = await contract.functions.remainingTokens();
       const sold = await contract.functions.totalDistributed();
-      const price = await contract.functions.getPrice();
 
       setRemainToken(ethers.utils.formatUnits((remaining[0]._hex), 18));
       setTokenSold(ethers.utils.formatUnits((sold[0]._hex), 18));
-      setTokenPrice(ethers.utils.formatUnits(price[0]._hex, 8));
     } catch (err) {
       ErrorHandling(err);
     }
@@ -47,7 +43,7 @@ export default function Info() {
           <Col md={10} lg={7}>
             <CardStyled>
               <SubTitle>Token Sold</SubTitle>
-              <Text>$ {Number(tokenSold) * 0.027}</Text>
+              <Text>$ {(Number(tokenSold) * 0.027).toFixed(3)}</Text>
             </CardStyled>
           </Col>
           <Col lg={7}>

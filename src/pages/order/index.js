@@ -9,7 +9,6 @@ import {
   Container, 
   Title, 
   BtnClaim, 
-  Text
 } from "./styled";
 import Spinner from "react-spinkit";
 
@@ -20,7 +19,7 @@ export default function Order() {
   const [orders, setOrders] = useState([]);
 
   const TimeConverter = (timestamp) => {
-    const date = new Date(1632675306 * 1000).toLocaleString("en-US", {timeZoneName: "short"})
+    const date = new Date(timestamp * 1000).toLocaleString("en-US", {timeZoneName: "short"})
     return date;
   } 
 
@@ -49,7 +48,6 @@ export default function Order() {
           }
           setOrders(prevItem => [...prevItem, object]);
         })
-        console.log(orders);
         setLoading(false);
       });
     } catch(err) {
