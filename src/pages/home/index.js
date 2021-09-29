@@ -31,6 +31,9 @@ import { ReactComponent as Swap } from 'assets/swap.svg'
 
 
 import { ErrorHandling } from "utils/errorHandling"
+import { Contract } from "utils/useContract"
+import { Allowance } from "utils/getAllowance"
+import { Signer } from "utils/useSigner"
 
 export default function Home() {
   const contractAddress = '0xE0b8d681F8b26F6D897CC3922be0357C9116A852';
@@ -41,100 +44,121 @@ export default function Home() {
   const [modal, setModal] = useState(false);
   const [loading , setLoading] = useState(false);
 
-
   const checkAllowance = async(tokenAddress) => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const accounts = await provider.listAccounts();
+    try {
+      const allowance = await Allowance(tokenAddress);
 
-    let abi = [
-      "function allowance(address _owner, address _spender) public view returns (uint256)",
-    ];
-    let signer = provider.getSigner(accounts[0]);
-
-    const contract = new ethers.Contract(tokenAddress, abi, signer);
-    let allowance = await contract.allowance(accounts[0], contractAddress);
-    
-    if(!parseInt(allowance._hex)) { 
-      approve(tokenAddress);
-      message.info('Please Approve to spend token!')
-    } 
+      if(!parseInt(allowance._hex)) { 
+        approve(tokenAddress);
+        message.info('Please Approve to spend token!');
+      } else {
+        handleOrderToken();
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  const handleOrder = async() => {
+  const handleOrderToken = async() => {
     try {
-      if(selectedToken === 'bnb') {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const accounts = await provider.listAccounts();
-        
-        let signer = provider.getSigner(accounts[0]);
-        let Contract = new ethers.Contract(
-          contractAddress,
-          abi,
-          signer
-        );
-        const data = await Contract.order(
-          slippage,
-          {
-            value: ethers.utils.parseUnits(amount, 18)
-          }
-        )
-      } else {
-        checkAllowance(selectedToken);
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const accounts = await provider.listAccounts();
-        
-        let signer = provider.getSigner(accounts[0]);
-        let Contract = new ethers.Contract(
-          contractAddress,
-          abi,
-          signer
-        );
+      setLoading(true);
+      const contract = await Contract();
+      const data = await contract.orderToken(
+        selectedToken,
+        ethers.utils.parseUnits(amount, 18),
+        slippage
+      )
 
-        const data = await Contract.orderToken(
-          selectedToken,
-          ethers.utils.parseUnits(amount, 18),
-          slippage
-        )
+      async function Pending() {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const result = await provider.getTransactionReceipt(data.hash);
+        try {
+          if(result === null) {
+            setTimeout(() => {
+              Pending();
+            }, 2000);
+          } else if(result !== null) { 
+            setLoading(false);
+          }
+        } catch (error) {
+          setLoading(false);
+        }
       }
+
+      setTimeout(() => {
+        Pending();
+      }, 2000);
+    } catch (error) {
+      ErrorHandling(error);
+      setLoading(false);
+    }
+  }
+
+  const handleOrderBNB = async() => {
+    try {
+      setLoading(true);
+      const contract = await Contract();
+      const data = await contract.order(
+        slippage,
+        {value: ethers.utils.parseUnits(amount, 18)}
+      )
+
+      async function Pending() {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const result = await provider.getTransactionReceipt(data.hash);
+        try {
+          if(result === null) {
+            setTimeout(() => {
+              Pending();
+            }, 2000);
+          } else if(result !== null) { 
+            setLoading(false);
+          }
+        } catch (error) {
+          setLoading(false);
+        }
+      }
+
+      setTimeout(() => {
+        Pending();
+      }, 2000);
     } catch (err) {
       ErrorHandling(err);
+      setLoading(false);
     }
   }
 
   async function approve(tokenAddress) {
     try {
-      // setLoading(true);
-      let abi = [
-        "function approve(address _spender, uint256 _value) public returns (bool success)",
-      ];
-
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const accounts = provider.listAccounts();
+      let abi = ["function approve(address _spender, uint256 _value) public returns (bool success)"];
       
-      let signer = provider.getSigner(accounts[0]);
+      setLoading(true);
+      const signer = await Signer();
       let TokenContract = new ethers.Contract(
         tokenAddress,
         abi,
         signer
       );
       
-      const result = await TokenContract.approve(
+      const data = await TokenContract.approve(
         contractAddress,
         ethers.utils.parseUnits(Math.pow(10, 18).toString(), 18)
       )
       
       async function PendingApprove() {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        await provider.getTransactionReceipt(result.hash, async function(error, result) { 
-          if(result === null || error) {
+        try {
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          const result = await provider.getTransactionReceipt(data.hash); 
+          if(result === null) {
             setTimeout(() => {
               PendingApprove();
             }, 2000);
-          } else if(result !== null || !error) { 
-            console.log(result);
-            handleOrder();
+          } else if(result !== null) { 
+            handleOrderToken();
           }
-        })
+        } catch (error) {
+          setLoading(false);
+        }
       }
 
       setTimeout(() => {
@@ -149,10 +173,15 @@ export default function Home() {
   const handleContribute = () => {
     if(!amount) return message.error('Invalid amount!');
     if(!selectedToken) return message.error('Please select a token');
-    handleOrder();
+    if(selectedToken === 'bnb') {
+      handleOrderBNB();
+    } else {
+      checkAllowance(selectedToken);
+    }
   }
 
-  const EstimateSEL = (amount) => {
+  const EstimateSEL = (amount) => { 
+    if(!selectedToken) return 0;
     if(slippage === '10') {
       return ((amount * selectedTokenPrice) / 0.027);
     } 
@@ -173,7 +202,9 @@ export default function Home() {
         onCancel={()=>setModal(false)}
       >
         <div>
-          <Text>Discount Rate</Text><br/>
+          <Row align='middle'>
+            <Text>Discount Rate</Text> <DiscountRateInfo />
+          </Row><br/>
           <Row>
             <Col span={6} offset={1}>
               <BtnSelect onClick={()=>setSlippage('10')}>10%</BtnSelect>
@@ -183,15 +214,6 @@ export default function Home() {
             </Col>
             <Col span={6} offset={1}>
               <BtnSelect onClick={()=>setSlippage('30')}>30%</BtnSelect>
-            </Col>
-          </Row>
-          <Row style={{marginTop: '15px'}}>
-            <Col span={12} offset={1}>
-            <ul>
-              <li>1 year vesting: 10% discount</li>
-              <li>2 year vesting: 20% discount</li>
-              <li>3 year vesting: 30% discount</li>
-            </ul>
             </Col>
           </Row>
         </div>
@@ -247,11 +269,7 @@ export default function Home() {
               <Text>{slippage}%</Text>
             </Col>
           </Row>
-          <BtnContribute onClick={handleContribute}>
-            <a>
-              { loading ? <Spinner name='circle' color='#fac66b' /> : 'Contribute' }
-            </a>
-          </BtnContribute>
+          <BtnContribute type='ghost' loading={loading} onClick={handleContribute}>Contribute</BtnContribute>
         </Form>
       </CardStyled>
       <Subtitle>How it works?</Subtitle>

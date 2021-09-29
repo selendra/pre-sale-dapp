@@ -49,42 +49,20 @@ const effect = keyframes`
     transform: rotate(360deg);
   }
 `
-export const BtnContribute = styled.div`
+export const BtnContribute = styled(Button)`
   position: relative;
   width: 352px;
   height: 55px;
   border-radius: 16px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  &:before {
-    content: "";
-    position: absolute;
-    width: 355px;
-    height: 355px;
-    background: conic-gradient(#F49D09, #fac66b);
-    animation: ${effect} 1.3s ease infinite;
-    transition: 1s ease;
+  border: 2px solid #F49D09;
+  color: #f1f1f2;
+  font-weight: 500;
+  :hover {
+    color: #fac66b;
+    border: 2px solid #fac66b;
   }
-  a {
-    position: absolute;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    width: 345px;
-    height: 50px;
-    color: #fff;
-    background: #111730;
-    text-align: center;
-    text-decoration: none;
-    line-height: 52px;
-    border-radius: 16px;
-    :hover {
-      color: #fac66b;
-    }
+  &:before {
+    background: transparent;
   }
 `
 export const BtnSelect = styled(Button)`

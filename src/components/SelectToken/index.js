@@ -8,9 +8,10 @@ import busd from 'assets/busd.png'
 import usdt from 'assets/usdt.png'
 import dai from 'assets/dai.png'
 import eth from 'assets/eth.png'
+import { ErrorHandling } from "utils/errorHandling"
 
 export default function SelectToken() {
-  const contractAddress = '0x9EbCf5d384FF361691c1e2C1552347d5Ce0ff5F4';
+  const contractAddress = '0xE0b8d681F8b26F6D897CC3922be0357C9116A852';
   const { setSelectedToken, setSelectedTokenPrice } = useContext(Context);
   const supportedTokens = [
     {
@@ -33,24 +34,28 @@ export default function SelectToken() {
 
   const handleSelectToken = async(value) => {
     setSelectedToken(value);
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const accounts = await provider.listAccounts();
-    
-    let signer = provider.getSigner(accounts[0]);
-    let Contract = new ethers.Contract(
-      contractAddress,
-      abi,
-      signer
-    );
-
-    if(value === 'bnb') {
-      const data = await Contract.getPrice();
-      const price = Number(ethers.utils.formatUnits(data, 8));
-      setSelectedTokenPrice(price);
-    } else {
-      const data = await Contract.getPriceToken(value);
-      const price = Number(ethers.utils.formatUnits(data, 8));
-      setSelectedTokenPrice(price);
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const accounts = await provider.listAccounts();
+      
+      let signer = provider.getSigner(accounts[0]);
+      let Contract = new ethers.Contract(
+        contractAddress,
+        abi,
+        signer
+      );
+  
+      if(value === 'bnb') {
+        const data = await Contract.getPrice();
+        const price = Number(ethers.utils.formatUnits(data, 8));
+        setSelectedTokenPrice(price);
+      } else {
+        const data = await Contract.getPriceToken(value);
+        const price = Number(ethers.utils.formatUnits(data, 8));
+        setSelectedTokenPrice(price);
+      }
+    } catch (error) {
+      ErrorHandling(error);
     }
   }
   return (

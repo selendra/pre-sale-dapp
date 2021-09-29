@@ -13,7 +13,6 @@ import {
 import Spinner from "react-spinkit";
 
 export default function Order() {
-  let signer;
   const contractAddress = '0xE0b8d681F8b26F6D897CC3922be0357C9116A852';
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
@@ -23,33 +22,31 @@ export default function Order() {
     return date;
   } 
 
-  const getOrder = () => {
+  const getOrder = async() => {
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
-      provider.listAccounts()
-      .then(async function(accounts) {
-        signer = provider.getSigner(accounts[0]);
-        const contract = new ethers.Contract(
-          contractAddress,
-          abi,
-          signer
-        )
+      const accounts = await provider.listAccounts()
+      let signer = provider.getSigner(accounts[0]);
+      const contract = new ethers.Contract(
+        contractAddress,
+        abi,
+        signer
+      )
 
-        const data = await contract.investorOrderIds(accounts[0])
-        
-        data.map(async(i) => {
-          const data = await contract.orders(i._hex);
-          const object = {
-            order_id: parseInt(i._hex),
-            order_hex: i._hex,
-            amount: ethers.utils.formatUnits(data.amount._hex, 18),
-            release_on_block: TimeConverter(parseInt(data.releaseOnBlock._hex)),
-            claim: (data.claimed).toString(),
-          }
-          setOrders(prevItem => [...prevItem, object]);
-        })
-        setLoading(false);
-      });
+      const data = await contract.investorOrderIds(accounts[0])
+      
+      data.map(async(i) => {
+        const data = await contract.orders(i._hex);
+        const object = {
+          order_id: parseInt(i._hex),
+          order_hex: i._hex,
+          amount: ethers.utils.formatUnits(data.amount._hex, 18),
+          release_on_block: TimeConverter(parseInt(data.releaseOnBlock._hex)),
+          claim: (data.claimed).toString(),
+        }
+        setOrders(prevItem => [...prevItem, object]);
+      })
+      setLoading(false);
     } catch(err) {
       console.log(err);
     }
@@ -60,7 +57,7 @@ export default function Order() {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const accounts = provider.listAccounts();
       
-      signer = provider.getSigner(accounts[0]);
+      let signer = provider.getSigner(accounts[0]);
       const contract = new ethers.Contract(
         contractAddress,
         abi,
