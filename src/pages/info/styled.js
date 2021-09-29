@@ -8,6 +8,8 @@ export const Container = styled.div`
   padding: 4rem 0;
 `
 export const CardStyled = styled(Card)`
+  width: 100%;
+  min-width: 320px;
   border: 1px solid rgb(90, 196, 190);
   background-color: transparent;
   border-radius: 5px;
@@ -29,7 +31,7 @@ export const Title = styled.h2`
 `
 export const SubTitle = styled.p`
   font-size: 32px;
-  font-weight: 500;
+  font-weight: 400;
   color: #A1A3AE;
 `
 export const Text = styled.p`
