@@ -61,6 +61,10 @@ export const BtnContribute = styled(Button)`
     color: #fac66b;
     border: 2px solid #fac66b;
   }
+  :focus {
+    color: #fac66b;
+    border: 2px solid #fac66b;
+  }
   &:before {
     background: transparent;
   }
