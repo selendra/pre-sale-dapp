@@ -17,13 +17,25 @@ export const Container = styled.div`
 export const HeaderItems = styled.div`
   display: grid;
   grid-template-columns: auto auto auto;
-  grid-gap: 40px;
+  /* grid-gap: 40px; */
   align-items: center;
 `
 export const Item = styled(NavLink)`
   font-size: 16px;
   font-weight: 500;
   color: #FFF;
+  background: ${({active}) => active === 'true' ? 'linear-gradient(to right, #8e2de2, #4a00e0)' : 'none'};
+  width: 120px;
+  text-align: center;
+  padding: 8px;
+  border-radius: 5px;
+  background-size: 150% 150%;
+  transition: .5s;
+  :hover {
+    color: #fff;
+    background: linear-gradient(to right, #8e2de2, #4a00e0);
+    background-position: 99% 50%;
+  }
 `
 export const Logo = styled.img`
   height: 50px;

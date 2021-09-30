@@ -44,35 +44,34 @@ export const InputStyled = styled(Input)`
     box-shadow: none!important;
   }
 `
-const effect = keyframes`
-  100% {
-    transform: rotate(360deg);
-  }
-`
 export const BtnContribute = styled(Button)`
   position: relative;
   width: 352px;
   height: 55px;
   border-radius: 16px;
-  border: 2px solid #F49D09;
+  border: none;
+  font-weight: 600;
   color: #f1f1f2;
-  font-weight: 500;
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+  background-size: 150% 150%;
+  transition: .5s;
   :hover {
-    color: #fac66b;
-    border: 2px solid #fac66b;
+    color: #fff;
+    filter: brightness(.85);
+    background: linear-gradient(to right, #8e2de2, #4a00e0);
+    background-position: 99% 50%;
   }
   :focus {
-    color: #fac66b;
-    border: 2px solid #fac66b;
-  }
-  &:before {
-    background: transparent;
+    color: #fff;
+    filter: brightness(.85);
+    background: linear-gradient(to right, #8e2de2, #4a00e0);
+    background-position: 99% 50%;
   }
 `
 export const BtnSelect = styled(Button)`
   width: 100%;
   color: #fff;
-  background: #131a35;
+  background: ${({active}) => active === 'true' ? '#5ac4be' : '#131a35'} ;
   border: none;
   border-radius: 5px;
   :focus,

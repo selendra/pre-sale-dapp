@@ -1,8 +1,8 @@
 export default {
   // Temp fonts
   fonts: {
-    title: "Rubik, sans-serif",
-    main: "Rubik, sans-serif"
+    title: "Inter, sans-serif",
+    main: "Inter, sans-serif"
   },
   // Colors for layout
   colors: {

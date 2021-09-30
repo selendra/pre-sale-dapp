@@ -29,9 +29,6 @@ export default function Header() {
       await window.ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => {
         getBalance(accounts[0]);
       });
-      // await window.ethereum.request({ method: 'eth_chainId' }).then(chainId => {
-      //   if(chainId !== '0x38') setModal(true);
-      // })
     } else {
       message.error("Metamask not detected!!")
     }
@@ -39,7 +36,8 @@ export default function Header() {
 
   useEffect(() => {
     handleConnect();
-  }, [])
+  }, []);
+
 
   return (
     <Wrapper>

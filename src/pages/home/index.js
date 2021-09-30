@@ -48,11 +48,11 @@ export default function Home() {
     try {
       const allowance = await Allowance(tokenAddress);
 
-      if(!parseInt(allowance._hex)) { 
+      if(!parseInt(allowance._hex)) {
         approve(tokenAddress);
         message.info('Please Approve to spend token!');
       } else {
-        handleOrderToken();
+        handleOrderToken(); 
       }
     } catch (error) {
       console.log(error);
@@ -199,33 +199,53 @@ export default function Home() {
         visible={modal}
         title='Settings'
         footer=''
+        title=''
         onCancel={()=>setModal(false)}
       >
         <div>
-          <Row align='middle'>
-            <Text>Discount Rate</Text> <DiscountRateInfo />
+          <Row align='middle' justify='center'>
+            <Subtitle>Discount</Subtitle>
           </Row><br/>
-          <Row>
-            <Col span={6} offset={1}>
-              <BtnSelect onClick={()=>setSlippage('10')}>10%</BtnSelect>
+          <Row align='middle' justify='space-between'>
+            <Col span={10} offset={1}>
+              <BtnSelect 
+                active={(slippage === '10').toString()}
+                onClick={()=>setSlippage('10')}
+              >10%</BtnSelect>
             </Col>
-            <Col span={6} offset={1}>
-              <BtnSelect onClick={()=>setSlippage('20')}>20%</BtnSelect>
+            <Col span={10} offset={1}>
+              <Text>: 1 year vesting lock</Text>
             </Col>
-            <Col span={6} offset={1}>
-              <BtnSelect onClick={()=>setSlippage('30')}>30%</BtnSelect>
+          </Row>
+          <br/>
+          <Row align='middle' justify='space-between'>
+            <Col span={10} offset={1}>
+              <BtnSelect 
+                active={(slippage === '20').toString()} 
+                onClick={()=>setSlippage('20')}
+              >20%</BtnSelect>
+            </Col>
+            <Col span={10} offset={1}>
+              <Text>: 2 year vesting lock</Text>
+            </Col>
+          </Row>
+          <br />
+          <Row align='middle' justify='space-between'>
+            <Col span={10} offset={1}>
+              <BtnSelect 
+                active={(slippage === '30').toString()} 
+                onClick={()=>setSlippage('30')}
+              >30%</BtnSelect>
+            </Col>
+            <Col span={10} offset={1}>
+              <Text>: 3 year vesting lock</Text>
             </Col>
           </Row>
         </div>
       </ModalStyled>
-      <Row justify='space-between' align='middle'>
+      <Row justify='center' align='middle'>
         <Col>
           <Subtitle>Contribute</Subtitle>
-        </Col>
-        <Col>
-          <Button style={{border: 'none'}} type='ghost' onClick={() => setModal(true)}>
-            <Cog />
-          </Button>
         </Col>
       </Row>
       <br/>
@@ -260,14 +280,11 @@ export default function Home() {
               </div>
             </Row>
           </FormItem>
-          <Row justify='space-between' style={{paddingBottom: '20px'}}>
-            <Col style={{display: 'flex'}}>
-              <Text>Discount Rate</Text> 
-              <DiscountRateInfo />
-            </Col>
-            <Col>
-              <Text>{slippage}%</Text>
-            </Col>
+          <Row justify='end' style={{paddingBottom: '20px'}}>
+            <Text>Discount {slippage}%</Text>
+            <Button style={{border: 'none', padding: '0'}} type='ghost' onClick={() => setModal(true)}>
+              <Cog />
+            </Button>
           </Row>
           <BtnContribute type='ghost' loading={loading} onClick={handleContribute}>Contribute</BtnContribute>
         </Form>
