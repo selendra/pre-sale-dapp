@@ -45,8 +45,8 @@ export const BtnConnect = styled(Button)`
   width: 200px;
   height: 40px;
   color: #F49D09;
-  border: 1px solid #F49D09;
-  border-radius: 16px;
+  border: 1.5px solid #6a7cff;
+  border-radius: 12px;
   padding: 0 6px;
   :hover {
     color: #fac66b;

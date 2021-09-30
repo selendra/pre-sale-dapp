@@ -39,7 +39,6 @@ export default function Header() {
     handleConnect();
   }, []);
 
-
   return (
     <Wrapper>
       <Container>
