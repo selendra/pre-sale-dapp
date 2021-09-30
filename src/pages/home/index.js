@@ -18,13 +18,10 @@ import {
   Text,
   ModalStyled
 } from "./styled"
-import Spinner from "react-spinkit"
 import SelectToken from "components/SelectToken"
-import DiscountRateInfo from "components/DiscountRateInfo"
 
 import { Context } from "context/contex"
 
-import abi from 'contract/presale.json'
 import SEL from 'assets/sel.png'
 import { ReactComponent as Cog } from 'assets/cog.svg'
 import { ReactComponent as Swap } from 'assets/swap.svg'
@@ -36,7 +33,7 @@ import { Allowance } from "utils/getAllowance"
 import { Signer } from "utils/useSigner"
 
 export default function Home() {
-  const contractAddress = '0xE0b8d681F8b26F6D897CC3922be0357C9116A852';
+  const contractAddress = '0xeBf7E248689534C2757a20DCfe7ffe0bb04b9e93';
   const { selectedToken, selectedTokenBalance, selectedTokenPrice } = useContext(Context);
 
   const [amount, setAmount] = useState('');

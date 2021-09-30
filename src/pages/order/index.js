@@ -13,7 +13,7 @@ import {
 import Spinner from "react-spinkit";
 
 export default function Order() {
-  const contractAddress = '0xE0b8d681F8b26F6D897CC3922be0357C9116A852';
+  const contractAddress = '0xeBf7E248689534C2757a20DCfe7ffe0bb04b9e93';
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
 

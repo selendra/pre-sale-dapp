@@ -23,21 +23,6 @@ export default function Info() {
     }
   }
 
-  const chartData = {
-    labels: ['Public Sale IDO', 'Private Sale'],
-    datasets: [{
-      labels: 'Token Sale',
-      data: [
-        282743338,
-        94274779
-      ],
-      backgroundColor: [
-        'rgb(54, 162, 235)',
-        'rgb(255, 205, 86)'
-      ],
-    }]
-  }
-
   useEffect(() => {
     Fetch();
   },[]);
