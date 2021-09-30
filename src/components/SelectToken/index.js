@@ -1,17 +1,16 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { ethers } from "ethers"
 import { Context } from "context/contex"
 import { SortOption, SortSelect } from "./styled"
-import abi from 'contract/presale.json'
 import bnb from 'assets/bnb.png'
 import busd from 'assets/busd.png'
 import usdt from 'assets/usdt.png'
 import dai from 'assets/dai.png'
 import eth from 'assets/eth.png'
 import { ErrorHandling } from "utils/errorHandling"
+import { Contract } from "utils/useContract"
 
 export default function SelectToken() {
-  const contractAddress = '0xE0b8d681F8b26F6D897CC3922be0357C9116A852';
   const { setSelectedToken, setSelectedTokenPrice } = useContext(Context);
   const supportedTokens = [
     {
@@ -35,22 +34,15 @@ export default function SelectToken() {
   const handleSelectToken = async(value) => {
     setSelectedToken(value);
     try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const accounts = await provider.listAccounts();
-      
-      let signer = provider.getSigner(accounts[0]);
-      let Contract = new ethers.Contract(
-        contractAddress,
-        abi,
-        signer
-      );
+      const contract = await Contract();
   
       if(value === 'bnb') {
-        const data = await Contract.getPrice();
+        const data = await contract.getPrice();
+        // console.log(ethers.utils.formatUnits(data, 8))
         const price = Number(ethers.utils.formatUnits(data, 8));
         setSelectedTokenPrice(price);
       } else {
-        const data = await Contract.getPriceToken(value);
+        const data = await contract.getPriceToken(value);
         const price = Number(ethers.utils.formatUnits(data, 8));
         setSelectedTokenPrice(price);
       }
@@ -58,9 +50,15 @@ export default function SelectToken() {
       ErrorHandling(error);
     }
   }
+
+  useEffect(() => {
+    handleSelectToken('bnb');
+  }, [])
+
   return (
     <SortSelect 
       placeholder="Select a token"
+      defaultValue="bnb"
       style={{ width: '40%' }}
       dropdownStyle={{
         color: '#fff',
