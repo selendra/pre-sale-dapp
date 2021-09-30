@@ -240,7 +240,7 @@ export default function Home() {
             <Col span={10} offset={1}>
               <Text>: 3 year vesting lock</Text>
             </Col>
-          </Row>
+          </Row><br />
         </div>
       </ModalStyled>
       <Row justify='center' align='middle'>
