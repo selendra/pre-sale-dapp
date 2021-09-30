@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Button } from 'antd';
 import styled from "styled-components/macro";
 
@@ -20,7 +20,7 @@ export const HeaderItems = styled.div`
   /* grid-gap: 40px; */
   align-items: center;
 `
-export const Item = styled(NavLink)`
+export const Item = styled(Link)`
   font-size: 16px;
   font-weight: 500;
   color: #FFF;

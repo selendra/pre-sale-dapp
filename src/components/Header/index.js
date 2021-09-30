@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { message } from "antd";
 import { ethers } from "ethers";
 import { 
@@ -15,6 +15,7 @@ import metamask from '../../assets/metamask.webp';
 import bnb from '../../assets/bnb.png';
 
 export default function Header() {
+  const location = useLocation();
   const [balance, setBalance] = useState('');
 
   const getBalance = async(fromAddress) => {
@@ -42,16 +43,16 @@ export default function Header() {
   return (
     <Wrapper>
       <Container>
-        <NavLink to='/'>
+        <Link to='/'>
           <Logo 
             alt='bitriel'
             src={bitriel}
           />
-        </NavLink>
+        </Link>
         <HeaderItems>
-          <Item to='/'>Contribute</Item>
-          <Item to='/order'>Activity</Item>
-          <Item to='/info'>Status</Item>
+          <Item active={(location.pathname === '/').toString()} to='/'>Contribute</Item>
+          <Item active={(location.pathname === '/order').toString()} to='/order'>Activity</Item>
+          <Item active={(location.pathname === '/info').toString()} to='/info'>Status</Item>
         </HeaderItems>
         <BtnConnect type='ghost' onClick={handleConnect}>
           {
