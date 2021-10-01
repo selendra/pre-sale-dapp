@@ -293,7 +293,7 @@ export default function Home() {
         1. Connect you metamask wallet. <br/>
         2. Enter the contribution amount in BNB. <br/>
         3. Press Contribute. <br/>
-        OFFICIAL SELENDRA TOKEN ADDRESS : 0xF3840e453f751ecA77467da08781C58C1A156B04
+        OFFICIAL SELENDRA TOKEN ADDRESS : 0x30bab6b88db781129c6a4e9b7926738e3314cf1c
       </p>
     </Container>
   )
