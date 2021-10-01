@@ -71,9 +71,9 @@ export default function Header() {
                     src={bitriel}
                   />
                 </Row><br/>
-                <Item mobile active={(location.pathname === '/').toString()} to='/'>Contribute</Item>
-                <Item mobile active={(location.pathname === '/order').toString()} to='/order'>Activity</Item>
-                <Item mobile active={(location.pathname === '/info').toString()} to='/info'>Status</Item>
+                <Item mobile='true' active={(location.pathname === '/').toString()} to='/'>Contribute</Item>
+                <Item mobile='true' active={(location.pathname === '/order').toString()} to='/order'>Activity</Item>
+                <Item mobile='true' active={(location.pathname === '/info').toString()} to='/info'>Status</Item>
               </div>
             </DrawerStyled>
           </Col>

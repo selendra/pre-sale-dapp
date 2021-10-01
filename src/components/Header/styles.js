@@ -26,7 +26,7 @@ export const Item = styled(Link)`
   font-weight: 500;
   color: #FFF;
   background: ${({active}) => active === 'true' ? 'linear-gradient(to right, #8e2de2, #4a00e0)' : 'none'};
-  width: ${({mobile}) => mobile ? '100%' : '120px'};
+  width: ${({mobile}) => mobile === 'true' ? '100%' : '120px'};
   text-align: center;
   padding: 8px;
   border-radius: 5px;

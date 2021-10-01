@@ -2,7 +2,8 @@ import {
   BrowserRouter as 
   Router, 
   Route, 
-  Switch  
+  Switch,
+  Redirect  
 } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -16,8 +17,11 @@ export default function App() {
       <Header />
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route exact path='/info' component={Info} />
-        <Route exact path='/order' component={Order} />
+        <Route path='/info' component={Info} />
+        <Route path='/order' component={Order} />
+        <Route path='/sel-pre-sale'>
+          <Redirect to='/' />
+        </Route>
       </Switch>
       <Footer />
     </Router>
