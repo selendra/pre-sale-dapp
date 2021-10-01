@@ -2,7 +2,7 @@ import { Collapse, Button } from "antd";
 import styled from "styled-components";
 
 export const Container = styled.div`
-  max-width: 500px;
+  max-width: 400px;
   min-height: calc(100vh - 120px);
   margin: auto;
   padding: 14rem 0;
@@ -10,6 +10,7 @@ export const Container = styled.div`
 export const CardStyled = styled.div`
   width: 400px;
   max-height: 650px;
+  margin: auto;
   background-color: #111730;
   border-radius: 16px;
   padding: 15px;

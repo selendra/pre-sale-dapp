@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button } from 'antd';
+import { Button, Drawer } from 'antd';
 import styled from "styled-components/macro";
 
 export const Wrapper = styled.header`
@@ -21,11 +21,12 @@ export const HeaderItems = styled.div`
   align-items: center;
 `
 export const Item = styled(Link)`
+  display: block;
   font-size: 16px;
   font-weight: 500;
   color: #FFF;
   background: ${({active}) => active === 'true' ? 'linear-gradient(to right, #8e2de2, #4a00e0)' : 'none'};
-  width: 120px;
+  width: ${({mobile}) => mobile ? '100%' : '120px'};
   text-align: center;
   padding: 8px;
   border-radius: 5px;
@@ -53,3 +54,15 @@ export const BtnConnect = styled(Button)`
     border-color: #fac66b;
   }
 `
+export const MenuIcon = styled.img`
+  cursor: pointer;
+`
+export const DrawerStyled = styled(Drawer)`
+  .ant-drawer-body {
+    background: ${({theme}) => theme.colors.background1};
+  }
+  .anticon {
+    display: none;
+  }
+`
+// export const NavItems = styled.

@@ -106,7 +106,6 @@ export default function Order() {
                   </Collapse.Panel>
                 </CollapseStyled>
               )
-          
         }
       </CardStyled>
     </Container>

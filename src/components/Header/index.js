@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { message } from "antd";
+import WalletConnect from "@walletconnect/client";
+import QRCodeModal from "@walletconnect/qrcode-modal";
+import { Col, Drawer, message, Row } from "antd";
 import { ethers } from "ethers";
 import { 
   Wrapper, 
@@ -8,14 +10,18 @@ import {
   Logo, 
   HeaderItems, 
   Item, 
-  BtnConnect 
+  BtnConnect, 
+  MenuIcon,
+  DrawerStyled
 } from "./styles";
 import bitriel from '../../assets/bitriel.png';
 import metamask from '../../assets/metamask.webp';
 import bnb from '../../assets/bnb.png';
+import menu from 'assets/menu.svg';
 
 export default function Header() {
   const location = useLocation();
+  const [navActive, setNavActive] = useState(false);
   const [balance, setBalance] = useState('');
 
   const getBalance = async(fromAddress) => {
@@ -48,11 +54,30 @@ export default function Header() {
             src={bitriel}
           />
         </Link>
-        <HeaderItems>
-          <Item active={(location.pathname === '/').toString()} to='/'>Contribute</Item>
-          <Item active={(location.pathname === '/order').toString()} to='/order'>Activity</Item>
-          <Item active={(location.pathname === '/info').toString()} to='/info'>Status</Item>
-        </HeaderItems>
+        <Row>
+          <Col xs={0} sm={0} md={12} lg={12} xl={12}>
+            <HeaderItems>
+              <Item active={(location.pathname === '/').toString()} to='/'>Contribute</Item>
+              <Item active={(location.pathname === '/order').toString()} to='/order'>Activity</Item>
+              <Item active={(location.pathname === '/info').toString()} to='/info'>Status</Item>
+            </HeaderItems>
+          </Col>
+          <Col>
+            <DrawerStyled placement="right" onClose={() => setNavActive(false)} visible={navActive}>
+              <div style={{display: 'block'}}>
+                <Row justify='center'>
+                  <Logo 
+                    alt='bitriel'
+                    src={bitriel}
+                  />
+                </Row><br/>
+                <Item mobile active={(location.pathname === '/').toString()} to='/'>Contribute</Item>
+                <Item mobile active={(location.pathname === '/order').toString()} to='/order'>Activity</Item>
+                <Item mobile active={(location.pathname === '/info').toString()} to='/info'>Status</Item>
+              </div>
+            </DrawerStyled>
+          </Col>
+        </Row>
         <BtnConnect type='ghost' onClick={handleConnect}>
           {
             balance ? (
@@ -67,6 +92,13 @@ export default function Header() {
             )
           }
         </BtnConnect>
+        <Col xs={2} sm={2} md={0} lg={0} xl={0} >
+          <MenuIcon 
+            src={menu}
+            alt='menu'
+            onClick={() => setNavActive(!navActive)}
+          />
+        </Col>
       </Container>
     </Wrapper>
   )
