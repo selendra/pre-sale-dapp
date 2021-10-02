@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ethers } from "ethers"
 import { Context } from "context/contex"
 import { SortOption, SortSelect } from "./styled"
@@ -11,7 +11,7 @@ import { ErrorHandling } from "utils/errorHandling"
 import { Contract } from "utils/useContract"
 
 export default function SelectToken() {
-  const { setSelectedToken, setSelectedTokenPrice } = useContext(Context);
+  const { setSelectedToken, setSelectedTokenPrice, setLoading } = useContext(Context);
   const supportedTokens = [
     {
       tokenAddress: "0xe9e7cea3dedca5984780bafc599bd69add087d56", // BUSD
@@ -34,21 +34,25 @@ export default function SelectToken() {
   const handleSelectToken = async(value) => {
     setSelectedToken(value);
     try {
+      setLoading(true);
       const contract = await Contract();
   
       if(value === 'bnb') {
         const data = await contract.getPrice();
-        // console.log(ethers.utils.formatUnits(data, 8))
+        console.log(ethers.utils.formatUnits(data, 8))
         const price = Number(ethers.utils.formatUnits(data, 8));
         setSelectedTokenPrice(price);
+        setLoading(false);
       } else {
         const data = await contract.getPriceToken(value);
         console.log(ethers.utils.formatUnits(data, 8))
         const price = Number(ethers.utils.formatUnits(data, 8));
         setSelectedTokenPrice(price);
+        setLoading(false);
       }
     } catch (error) {
       ErrorHandling(error);
+      setLoading(false);
     }
   }
 

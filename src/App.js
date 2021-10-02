@@ -1,9 +1,9 @@
 import { 
   BrowserRouter as 
-  Router, 
-  Route, 
+  Router,
+  Route,
   Switch,
-  Redirect  
+  Redirect
 } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -12,6 +12,11 @@ import Info from "./pages/info/index";
 import Order from "./pages/order/index";
 
 export default function App() {
+  if(window.ethereum) {
+    window.ethereum.on('chainChanged', (_chainId) => window.location.reload());
+    window.ethereum.on('accountsChanged', (accounts) => window.location.reload());
+  }
+
   return (
     <Router>
       <Header />

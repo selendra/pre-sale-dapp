@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button, Drawer } from 'antd';
+import { Button, Drawer, Modal } from 'antd';
 import styled from "styled-components/macro";
 
 export const Wrapper = styled.header`
@@ -65,4 +65,8 @@ export const DrawerStyled = styled(Drawer)`
     display: none;
   }
 `
-// export const NavItems = styled.
+export const ModalStyled = styled(Modal)`
+  .ant-modal-content{
+    border-radius: 16px;
+  }
+`

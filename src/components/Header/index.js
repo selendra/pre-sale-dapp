@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "@walletconnect/qrcode-modal";
-import { Col, Drawer, message, Row } from "antd";
+import { Col, message, Row } from "antd";
+import { WarningOutlined } from '@ant-design/icons'
 import { ethers } from "ethers";
 import { 
   Wrapper, 
@@ -12,7 +13,8 @@ import {
   Item, 
   BtnConnect, 
   MenuIcon,
-  DrawerStyled
+  DrawerStyled,
+  ModalStyled
 } from "./styles";
 import bitriel from '../../assets/bitriel.png';
 import metamask from '../../assets/metamask.webp';
@@ -21,6 +23,7 @@ import menu from 'assets/menu.svg';
 
 export default function Header() {
   const location = useLocation();
+  const [modal, setModal] = useState(false);
   const [navActive, setNavActive] = useState(false);
   const [balance, setBalance] = useState('');
 
@@ -36,6 +39,9 @@ export default function Header() {
       await window.ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => {
         getBalance(accounts[0]);
       });
+      await window.ethereum.request({ method: 'eth_chainId' }).then(chainId => {
+        if(chainId !== '0x38') setModal(true);
+      })
     } else {
       message.error("Metamask not detected!!")
     }
@@ -47,6 +53,14 @@ export default function Header() {
 
   return (
     <Wrapper>
+      <ModalStyled
+        visible={modal}
+        onCancel={() => setModal(false)}
+        footer=''
+      >
+        <h2 style={{color: '#fff', fontSize: '24px'}}>Alert! <WarningOutlined style={{color: 'yellow'}} /></h2>
+        <p>You are connect to another network, Please switch to Binance Smart Chain network mainnet</p>
+      </ModalStyled>
       <Container>
         <Link to='/'>
           <Logo 
