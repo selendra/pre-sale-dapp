@@ -59,6 +59,10 @@ export const BtnConnect = styled(Button)`
     color: #fac66b;
     border-color: #f39d0c;
   }
+  :focus {
+    border-color: #f39d0c;
+    color: #f39d0c;
+  }
 `
 export const MenuIcon = styled.img`
   cursor: pointer;

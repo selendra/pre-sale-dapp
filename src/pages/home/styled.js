@@ -43,7 +43,7 @@ export const InputStyled = styled(Input)`
 `;
 export const BtnContribute = styled(Button)`
   position: relative;
-  max-width: 352px;
+  /* max-width: 352px; */
   width: 100%;
   height: 55px;
   border-radius: 12px;
@@ -59,6 +59,10 @@ export const BtnContribute = styled(Button)`
   }
   :focus {
     color: #fff;
+    background: #f39d0c;
+  }
+  :before {
+    background: #f39d0c4a;
   }
 `;
 export const BtnSelect = styled(Button)`

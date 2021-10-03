@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import WalletConnect from "@walletconnect/client";
-import QRCodeModal from "@walletconnect/qrcode-modal";
 import { Col, message, Row } from "antd";
 import { WarningOutlined } from '@ant-design/icons'
 import { ethers } from "ethers";
