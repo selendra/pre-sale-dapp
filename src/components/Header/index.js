@@ -27,25 +27,29 @@ export default function Header() {
   const [navActive, setNavActive] = useState(false);
   const [balance, setBalance] = useState('');
 
-  const getBalance = async(fromAddress) => {
+  const getBalance = async (fromAddress) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
     let balance = await provider.getBalance(fromAddress);
     setBalance(ethers.utils.formatEther(balance));
-  }
+  };
 
   const handleConnect = async() => {
     if(window.ethereum) {
-      await window.ethereum.request({ method: 'eth_requestAccounts' }).then(accounts => {
-        getBalance(accounts[0]);
-      });
-      await window.ethereum.request({ method: 'eth_chainId' }).then(chainId => {
-        if(chainId !== '0x38') setModal(true);
-      })
+      await window.ethereum
+        .request({ method: 'eth_requestAccounts' })
+        .then(accounts => {
+          getBalance(accounts[0]);
+        });
+      await window.ethereum
+        .request({ method: 'eth_chainId' })
+        .then(chainId => {
+          if(chainId !== '0x38') setModal(true);
+        })
     } else {
-      message.error("Metamask not detected!!")
+      message.error('Metamask not detected!!', 5);
     }
-  }
+  };
 
   useEffect(() => {
     handleConnect();
@@ -62,11 +66,8 @@ export default function Header() {
         <p>You are connect to another network, Please switch to Binance Smart Chain network mainnet</p>
       </ModalStyled>
       <Container>
-        <Link to='/'>
-          <Logo 
-            alt='bitriel'
-            src={bitriel}
-          />
+        <Link to="/">
+          <Logo alt="bitriel" src={bitriel} />
         </Link>
         <Row>
           <Col xs={0} sm={0} md={12} lg={12} xl={12}>
@@ -115,5 +116,5 @@ export default function Header() {
         </Col>
       </Container>
     </Wrapper>
-  )
+  );
 }
