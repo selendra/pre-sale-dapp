@@ -6,9 +6,12 @@ export const Container = styled.div`
   min-height: calc(100vh - 120px);
   margin: auto;
   padding: 14rem 0;
+  @media screen and (max-width: 500px) {
+    padding: 10rem 10px;
+  }
 `
 export const CardStyled = styled.div`
-  width: 400px;
+  max-width: 400px;
   max-height: 650px;
   margin: auto;
   background-color: #111730;

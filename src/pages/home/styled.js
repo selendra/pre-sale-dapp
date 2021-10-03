@@ -9,6 +9,9 @@ export const Container = styled.div`
   p {
     font-size: 18px;
   }
+  @media screen and (max-width: 500px) {
+    padding: 10rem 10px;
+  }
 `;
 export const CardStyled = styled(Card)`
   border: none;

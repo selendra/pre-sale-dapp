@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { Button, Col, Form, message, Row } from 'antd';
 import {
@@ -39,6 +39,15 @@ export default function Home() {
   const [slippage, setSlippage] = useState('10');
   const [modal, setModal] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [chainId, setChainId] = useState(false);
+  
+  useEffect(async() => {
+    await window.ethereum
+      .request({ method: 'eth_chainId' })
+      .then(chainId => {
+        if(chainId === '0x38') setChainId(true);
+      })
+  },[])
 
   const checkAllowance = async (tokenAddress) => {
     try {
@@ -255,12 +264,24 @@ export default function Home() {
           <FormItem
             label={'Balance: ' + Number(selectedTokenBalance).toFixed(3)}
           >
-            <InputStyled
-              placeholder="0.00"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              autoFocus
-            />
+            {
+              chainId ? (
+                <InputStyled
+                  placeholder="0.00"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  autoFocus
+                />
+              ) : (
+                <>
+                  <InputStyled
+                    placeholder="Please connect to BSC network"
+                    readOnly
+                    autoFocus
+                  />
+                </>
+              )
+            }
             <SelectToken />
           </FormItem>
           <Row justify="center">
