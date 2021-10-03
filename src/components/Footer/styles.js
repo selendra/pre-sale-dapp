@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const BreakLine = styled.div`
-  height: 1px;
+  height: 2px;
   background: rgba(0, 0, 0, 0)
     linear-gradient(
       90deg,
@@ -26,9 +26,11 @@ export const Logo = styled.img`
   height: 50px;
   width: auto;
 `;
-
 export const Social = styled.div`
   display: grid;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: auto auto auto auto auto;
   grid-gap: 20px;
+  @media screen and (max-width: 375px) {
+    grid-template-columns: auto auto auto;
+  }
 `;

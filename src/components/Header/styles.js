@@ -27,7 +27,7 @@ export const Item = styled(Link)`
   font-weight: ${({ active }) => (active === 'true' ? '700' : '500')};
   color: ${({ active }) => (active === 'true' ? '#f39d0c' : '#fff')};
   background: ${({ active }) => (active === 'true' ? '#f39d0c42' : 'none')};
-  width: 140px;
+  width: ${({mobile}) => mobile === 'true' ? '100%' : '140px' };
   height: 54px;
   line-height: 54px;
   text-align: center;
@@ -64,6 +64,10 @@ export const BtnConnect = styled(Button)`
     color: #f39d0c;
   }
 `;
+  @media screen and (max-width: 375px) {
+    width: 120px;
+  }
+`
 export const MenuIcon = styled.img`
   cursor: pointer;
 `;
