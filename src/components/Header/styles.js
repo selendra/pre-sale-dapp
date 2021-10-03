@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { Button, Drawer, Modal } from 'antd';
-import styled from "styled-components/macro";
+import styled from 'styled-components/macro';
 
 export const Wrapper = styled.header`
   width: 100%;
@@ -63,23 +63,24 @@ export const BtnConnect = styled(Button)`
     border-color: #f39d0c;
     color: #f39d0c;
   }
+`;
   @media screen and (max-width: 375px) {
     width: 120px;
   }
 `
 export const MenuIcon = styled.img`
   cursor: pointer;
-`
+`;
 export const DrawerStyled = styled(Drawer)`
   .ant-drawer-body {
-    background: ${({theme}) => theme.colors.background1};
+    background: ${({ theme }) => theme.colors.background1};
   }
   .anticon {
     display: none;
   }
-`
+`;
 export const ModalStyled = styled(Modal)`
-  .ant-modal-content{
+  .ant-modal-content {
     border-radius: 16px;
   }
-`
+`;

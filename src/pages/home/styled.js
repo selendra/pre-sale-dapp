@@ -49,20 +49,52 @@ export const BtnContribute = styled(Button)`
   border-radius: 12px;
   border: none;
   font-weight: 800;
-  color: #f1f1f2;
+  color: #333;
   background: #f39d0c;
+  background: #f2994a; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #f2c94c,
+    #f2994a
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #f2c94c,
+    #f2994a
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
   background-size: 150% 150%;
   transition: 0.5s;
   :hover {
     color: #fff;
-    background: #f39d0c4a;
+    background: #f2994a; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #f2c94c,
+      #f2994a
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to right,
+      #f2c94c,
+      #f2994a
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
   :focus {
     color: #fff;
     background: #f39d0c;
   }
   :before {
-    background: #f39d0c4a;
+    background: #f2994a; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #f2c94c,
+      #f2994a
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to right,
+      #f2c94c,
+      #f2994a
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
 `;
 export const BtnSelect = styled(Button)`
@@ -84,12 +116,14 @@ export const Subtitle = styled.p`
   font-size: 26px !important;
   font-weight: 800;
   margin: 0;
+  color: #f39d0c;
 `;
 export const Text = styled.p`
   font-size: 18px;
   color: #f1f1f2;
   display: flex;
   margin: 0 10px;
+  font-weight: 800;
 `;
 export const ModalStyled = styled(Modal)`
   border-radius: 16px;
