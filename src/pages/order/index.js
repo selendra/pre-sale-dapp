@@ -13,7 +13,7 @@ import {
 import Spinner from "react-spinkit";
 
 export default function Order() {
-  const contractAddress = '0xeBf7E248689534C2757a20DCfe7ffe0bb04b9e93';
+  const contractAddress = '0x1f1c4e7408C1A1cF2583eD155C7b88274Cf6Ab22';
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
 
@@ -106,7 +106,6 @@ export default function Order() {
                   </Collapse.Panel>
                 </CollapseStyled>
               )
-          
         }
       </CardStyled>
     </Container>

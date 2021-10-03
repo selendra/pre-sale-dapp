@@ -3,6 +3,7 @@ import { createContext, useEffect, useState } from 'react';
 
 export const Context = createContext();
 export const ContextProvider = ({children}) => {
+  const [priceLoading, setLoading] = useState(false);
   const [selectedToken, setSelectedToken] = useState('');
   const [selectedTokenBalance, setSelectedTokenBalance] = useState('');
   const [selectedTokenPrice, setSelectedTokenPrice] = useState(1);
@@ -48,8 +49,10 @@ export const ContextProvider = ({children}) => {
         selectedToken,
         selectedTokenPrice,
         selectedTokenBalance,
+        priceLoading,
         setSelectedToken,
-        setSelectedTokenPrice
+        setSelectedTokenPrice,
+        setLoading
       }}
     >{children}</Context.Provider>
   )

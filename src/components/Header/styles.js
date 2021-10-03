@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { Button } from 'antd';
-import styled from 'styled-components/macro';
+import { Link } from "react-router-dom";
+import { Button, Drawer, Modal } from 'antd';
+import styled from "styled-components/macro";
 
 export const Wrapper = styled.header`
   width: 100%;
@@ -22,6 +22,7 @@ export const HeaderItems = styled.div`
   align-items: center;
 `;
 export const Item = styled(Link)`
+  display: block;
   font-size: 16px;
   font-weight: ${({ active }) => (active === 'true' ? '700' : '500')};
   color: ${({ active }) => (active === 'true' ? '#f39d0c' : '#fff')};
@@ -58,4 +59,20 @@ export const BtnConnect = styled(Button)`
     color: #fac66b;
     border-color: #f39d0c;
   }
-`;
+`
+export const MenuIcon = styled.img`
+  cursor: pointer;
+`
+export const DrawerStyled = styled(Drawer)`
+  .ant-drawer-body {
+    background: ${({theme}) => theme.colors.background1};
+  }
+  .anticon {
+    display: none;
+  }
+`
+export const ModalStyled = styled(Modal)`
+  .ant-modal-content{
+    border-radius: 16px;
+  }
+`

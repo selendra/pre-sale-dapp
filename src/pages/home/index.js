@@ -20,15 +20,15 @@ import SEL from 'assets/sel.png';
 import { ReactComponent as Cog } from 'assets/cog.svg';
 import { ReactComponent as Swap } from 'assets/swap.svg';
 
-import { ErrorHandling } from 'utils/errorHandling';
-import { Contract } from 'utils/useContract';
-import { Allowance } from 'utils/getAllowance';
-import { Signer } from 'utils/useSigner';
+import { ErrorHandling } from "utils/errorHandling"
+import { Contract } from "utils/useContract"
+import { Allowance } from "utils/getAllowance"
+import { Signer } from "utils/useSigner"
+import Spinner from "react-spinkit"
 
 export default function Home() {
-  const contractAddress = '0xeBf7E248689534C2757a20DCfe7ffe0bb04b9e93';
-  const { selectedToken, selectedTokenBalance, selectedTokenPrice } =
-    useContext(Context);
+  const contractAddress = '0x1f1c4e7408C1A1cF2583eD155C7b88274Cf6Ab22';
+  const { selectedToken, selectedTokenBalance, selectedTokenPrice, priceLoading } = useContext(Context);
 
   const [amount, setAmount] = useState('');
   const [slippage, setSlippage] = useState('10');
@@ -261,18 +261,28 @@ export default function Home() {
           <Row justify="center">
             <Swap style={{ marginBottom: '20px' }} />
           </Row>
-          <FormItem label="To (estimated)">
-            <Row justify="space-between" align="middle">
-              <InputStyled
-                readOnly
-                placeholder="0.00"
-                value={EstimateSEL(amount).toFixed(2)}
-              />
-              <div style={{ width: '35%', display: 'inline' }}>
-                <img src={SEL} width="auto" height="32" />
-                <span style={{ color: '#fff', marginLeft: '10px' }}>SEL</span>
-              </div>
-            </Row>
+          <FormItem label='To (estimated)'>
+            { priceLoading ? (
+              <Row justify='center'> 
+                <Spinner name='circle' color='#fac66b' /> 
+              </Row>
+            ) : (
+              <Row justify='space-between' align='middle'>
+                <InputStyled 
+                  readOnly
+                  placeholder="0.00" 
+                  value={EstimateSEL(amount).toFixed(2)}
+                />
+                <div style={{width: '35%', display: 'inline'}} >
+                  <img 
+                    src={SEL}
+                    width= 'auto'
+                    height= '32'
+                  />
+                  <span style={{color: '#fff', marginLeft: '10px'}}>SEL</span>
+                </div>
+              </Row>
+            )}
           </FormItem>
           <Row justify="end" style={{ paddingBottom: '20px' }}>
             <Text>Discount {slippage}%</Text>
@@ -303,6 +313,7 @@ export default function Home() {
         <br />
         OFFICIAL SELENDRA TOKEN ADDRESS :
         0xF3840e453f751ecA77467da08781C58C1A156B04
+
       </p>
     </Container>
   );

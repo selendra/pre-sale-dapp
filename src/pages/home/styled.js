@@ -43,6 +43,7 @@ export const InputStyled = styled(Input)`
 `;
 export const BtnContribute = styled(Button)`
   position: relative;
+  max-width: 352px;
   width: 100%;
   height: 55px;
   border-radius: 12px;
