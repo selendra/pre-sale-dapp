@@ -11,6 +11,7 @@ import {
   Subtitle,
   Text,
   ModalStyled,
+  AlertStyled
 } from './styled';
 import SelectToken from 'components/SelectToken';
 
@@ -264,25 +265,25 @@ export default function Home() {
           <FormItem
             label={'Balance: ' + Number(selectedTokenBalance).toFixed(3)}
           >
-            {
-              chainId ? (
+            {chainId ? (
+              <InputStyled
+                placeholder="0.00"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                autoFocus
+                rules={[{ required: true, message: 'Username is required!' }]}
+              />
+            ) : (
+              <>
                 <InputStyled
                   placeholder="0.00"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
+                  readOnly
                   autoFocus
                 />
-              ) : (
-                <>
-                  <InputStyled
-                    placeholder="Please connect to BSC network"
-                    readOnly
-                    autoFocus
-                  />
-                </>
-              )
-            }
+              </>
+            )}
             <SelectToken />
+            {!chainId && <AlertStyled banner message="Please connect to BSC network" type="error" />}
           </FormItem>
           <Row justify="center">
             <Swap style={{ marginBottom: '20px' }} />

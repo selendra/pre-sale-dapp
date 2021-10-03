@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components';
-import { Button, Card, Form, Input, Modal } from 'antd';
+import styled from 'styled-components';
+import { Button, Card, Form, Input, Modal, Alert } from 'antd';
 
 export const Container = styled.div`
   max-width: 500px;
@@ -137,3 +137,9 @@ export const ModalStyled = styled(Modal)`
     border-radius: 16px 16px 0 0;
   }
 `;
+export const AlertStyled = styled(Alert)`
+  background: none;
+  .ant-alert-message {
+    color: red;
+  }
+`
