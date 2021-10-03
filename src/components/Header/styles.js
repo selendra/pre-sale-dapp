@@ -63,11 +63,10 @@ export const BtnConnect = styled(Button)`
     border-color: #f39d0c;
     color: #f39d0c;
   }
-`;
   @media screen and (max-width: 375px) {
     width: 120px;
   }
-`
+`;
 export const MenuIcon = styled.img`
   cursor: pointer;
 `;
