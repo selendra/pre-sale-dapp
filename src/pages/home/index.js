@@ -314,7 +314,7 @@ export default function Home() {
         3. Press Contribute. <br />
         <br />
         OFFICIAL SELENDRA TOKEN ADDRESS :
-        0xF3840e453f751ecA77467da08781C58C1A156B04
+        0x30bab6b88db781129c6a4e9b7926738e3314cf1c
       </p>
     </Container>
   );
