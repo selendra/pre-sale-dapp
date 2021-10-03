@@ -4,6 +4,7 @@ import fb from '../../assets/fb.svg';
 import linkedin from '../../assets/linkedin.svg';
 import medium from '../../assets/medium.svg';
 import twitter from '../../assets/twitter.svg';
+import telegram from 'assets/telegram.svg';
 
 export default function Footer() {
   return (
@@ -26,6 +27,13 @@ export default function Footer() {
             <img 
               src={twitter}
               alt='twitter'
+              width={30}
+            />
+          </a>
+          <a href='https://t.me/selendraorg' target='_blank'>
+            <img 
+              src={telegram}
+              alt='telegram'
               width={30}
             />
           </a>

@@ -304,12 +304,13 @@ export default function Home() {
         </Form>
       </CardStyled>
       <Subtitle>How it works?</Subtitle>
-      <p>
-        A very simple and easy method for participation in a presale Please
-        follow the steps: <br />
-        1. Connect you metamask wallet. <br />
-        2. Enter the contribution amount in BNB. <br />
-        3. Press Contribute. <br />
+      <p style={{wordBreak: 'break-word'}}>
+        A simple method for participation to participate in presale. Please follow the steps below: <br />
+        1. Connect to Metamask. <br />
+        2. Change network to BSC, if don't have BSC yet, follow link how to add bsc to metamask. <br />
+        3. Make sure you have fund available at least {'>'} $1000 worth of crypto or stable coins. <br />
+        4. Enter the contribution amount in BNB, BUSD, USDT, DAI or ETH. <br />
+        5. Press Contribute. <br />
         <br />
         OFFICIAL SELENDRA TOKEN ADDRESS :
         0x30bab6b88db781129c6a4e9b7926738e3314cf1c
