@@ -331,7 +331,7 @@ export default function Home() {
       <p style={{wordBreak: 'break-word'}}>
         A simple method for participation to participate in presale. Please follow the steps below: <br />
         1. Connect to Metamask. <br />
-        2. Change network to BSC, if don't have BSC yet, follow link how to add bsc to metamask. <br />
+        2. Change network to BSC, if don't have BSC yet, <a href='https://academy.binance.com/en/articles/connecting-metamask-to-binance-smart-chain' target='_blank'>follow link how to add bsc to metamask.</a> <br />
         3. Make sure you have fund available at least {'>'} $1000 worth of crypto or stable coins. <br />
         4. Enter the contribution amount in BNB, BUSD, USDT, DAI or ETH. <br />
         5. Press Contribute. <br />
