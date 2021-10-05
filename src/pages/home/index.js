@@ -260,6 +260,11 @@ export default function Home() {
         </Col>
       </Row> */}
       <br />
+      <center>
+        <p className="home-title">Selendra's SEL</p>
+        <p className="home-sub-title">Token presale event</p>
+        <br />
+      </center>
       <CardStyled>
         <Form layout="vertical" color="white">
           <FormItem
