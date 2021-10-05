@@ -14,14 +14,14 @@ const GlobalStyles = createGlobalStyle`
     scroll-behavior: smooth;
   }
   body {
-    font-family: ${props => props.theme.fonts.main};
+    font-family: ${(props) => props.theme.fonts.main};
     font-size: 1.6rem;
-    background: ${({theme}) => theme.colors.background1};
-    color: ${props => props.theme.colors.primary1};
+    background: ${({ theme }) => theme.colors.background1};
+    color: ${(props) => props.theme.colors.primary1};
     cursor: default;
   }
   h1,h2,h3,h4,h5,h6,button {
-    font-family: ${props => props.theme.fonts.title};
+    font-family: ${(props) => props.theme.fonts.title};
   }
   a {
     text-decoration: none;
@@ -53,6 +53,16 @@ const GlobalStyles = createGlobalStyle`
   }
   .ant-modal-close-x {
     color: #f1f1f2;
+  }
+  .home-title{
+    font-size: 34px !important;
+    font-weight: bold;
+    margin-bottom: 0px;
+    color: #f39d0c;
+  }
+  .home-sub-title{
+    font-size: 20px !important;
+    margin-bottom: 0px;
   }
 `;
 
