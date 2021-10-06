@@ -44,6 +44,7 @@ export const Logo = styled.img`
 `;
 export const BtnConnect = styled(Button)`
   width: 200px;
+  overflow: hidden;
   height: 54px;
   color: #fff;
   border: 2px solid #f39d0c;
@@ -65,6 +66,8 @@ export const BtnConnect = styled(Button)`
   }
   @media screen and (max-width: 375px) {
     width: 120px;
+    padding: 0 20px;
+    overflow: hidden;
   }
 `;
 export const MenuIcon = styled.img`

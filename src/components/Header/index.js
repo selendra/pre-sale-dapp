@@ -100,7 +100,7 @@ export default function Header() {
               </div>
             ) : (
               <div>
-                <img src={metamask} alt='metamask' width='24' height='24' /> Connect Wallet
+                <img src={metamask} alt='metamask' width='24' height='24' /> <span> Connect Wallet</span>
               </div>
             )
           }
