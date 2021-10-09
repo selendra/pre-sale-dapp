@@ -34,19 +34,19 @@ export default function Info() {
         <Col md={{ span: 10, offset: 0 }} lg={7}>
           <CardStyled>
             <SubTitle>Fundraising</SubTitle>
-            <Text>$ 1,600,000</Text>
+            <Text>$ 1,600,000.00</Text>
           </CardStyled>
         </Col>
         <Col md={{ span: 10, offset: 1 }} lg={{ span: 7, offset: 0 }}>
           <CardStyled>
             <SubTitle>Token Remaining</SubTitle>
-            <Text>{Number(remainToken).toFixed(3)} SEL</Text>
+            <Text>{new Intl.NumberFormat().format(remainToken)} SEL</Text>
           </CardStyled>
         </Col>
         <Col md={12} lg={7}>
           <CardStyled>
             <SubTitle>Token Sold</SubTitle>
-            <Text>{Number(tokenSold).toFixed(3)} SEL</Text>
+            <Text>{new Intl.NumberFormat().format(tokenSold)} SEL</Text>
           </CardStyled>
         </Col>
       </Row>

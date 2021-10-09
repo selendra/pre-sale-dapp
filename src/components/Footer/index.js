@@ -16,14 +16,14 @@ export default function Footer() {
           src={bitriel}
         />
         <Social>
-          <a href='https://www.facebook.com/selendraio' target='_blank'>
+          <a href='https://www.facebook.com/selendrachain' target='_blank'>
             <img 
               src={fb}
               alt='facebook'
               width={30}
             />
           </a>
-          <a href='https://twitter.com/selendraorg' target='_blank'>
+          <a href='https://twitter.com/selendrachain' target='_blank'>
             <img 
               src={twitter}
               alt='twitter'
