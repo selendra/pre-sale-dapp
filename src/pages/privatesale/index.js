@@ -24,12 +24,13 @@ export default function PrivateSale() {
     setLoading(true);
     try {
       const contractAddress = '0x1dE7A8c269488846B2522fda03bfbB5Df97f2C24';
-      const signer = await Signer();
+      // const signer = await Signer();
+      const provider = ethers.getDefaultProvider('https://bsc-dataseed.binance.org');
 
       const Contract = new ethers.Contract(
         contractAddress,
         abi,
-        signer
+        provider
       );
 
       const data = await Contract.balanceOf(value);
