@@ -1,4 +1,4 @@
-import { Container, FormItem, InputStyled, CardStyled } from "./styles";
+import { Container, FormItem, InputStyled, CardStyled, AlertStyled } from "./styles";
 import { Form, Row } from 'antd';
 import SEL from 'assets/sel.png';
 import Spinner from 'react-spinkit';
@@ -11,7 +11,13 @@ import abi from 'contract/privatesale.json';
 export default function PrivateSale() {
   const [amount, setAmount] = useState('');
   const [balance, setBalance] = useState('');
+  const [lock, setLock] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const TimeConverter = (timestamp) => {
+    const date = Math.floor(timestamp / (3600*24));
+    return date;
+  } 
 
   const getBalance = async(value) => {
     setAmount(value);
@@ -27,6 +33,8 @@ export default function PrivateSale() {
       );
 
       const data = await Contract.balanceOf(value);
+      const lock = await Contract.LOCK_DURATION();
+      setLock(TimeConverter(parseInt(lock._hex)));
       setBalance(ethers.utils.formatUnits((data._hex), 18))
       setLoading(false);
     } catch (error) {
@@ -48,7 +56,7 @@ export default function PrivateSale() {
             label={'Wallet Address: '}
           >
             <InputStyled
-              placeholder="0.00"
+              placeholder="0x"
               value={amount}
               onChange={(e) => getBalance(e.target.value)}
               autoFocus
@@ -70,13 +78,16 @@ export default function PrivateSale() {
                   placeholder="0.00"
                   value={balance}
                 />
-                <div style={{ width: '35%', display: 'inline' }}>
+                <div style={{ width: '20%', display: 'inline' }}>
                   <img src={SEL} width="auto" height="32" />
                   <span style={{ color: '#fff', marginLeft: '10px' }}>SEL</span>
                 </div>
               </Row>
             )}
           </FormItem>
+          {lock && (
+            <AlertStyled message={`Lock Duration: ${lock} Day`} type="info" showIcon />
+          )}
         </Form>
       </CardStyled>
     </Container>
