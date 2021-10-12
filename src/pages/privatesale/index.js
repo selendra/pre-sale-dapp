@@ -76,7 +76,7 @@ export default function PrivateSale() {
                 <InputStyled
                   readOnly
                   placeholder="0.00"
-                  value={balance}
+                  value={new Intl.NumberFormat().format(balance)}
                 />
                 <div style={{ width: '20%', display: 'inline' }}>
                   <img src={SEL} width="auto" height="32" />
