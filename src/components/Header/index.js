@@ -73,6 +73,7 @@ export default function Header() {
               <Item active={(location.pathname === '/').toString()} to='/'>Contribute</Item>
               <Item active={(location.pathname === '/order').toString()} to='/order'>Activity</Item>
               <Item active={(location.pathname === '/info').toString()} to='/info'>Status</Item>
+              <Item active={(location.pathname === '/privatesale').toString()} to='/privatesale'>Private-Sale</Item>
             </HeaderItems>
           </Col>
           <Col>
@@ -87,6 +88,8 @@ export default function Header() {
                 <Item mobile='true' active={(location.pathname === '/').toString()} to='/'>Contribute</Item>
                 <Item mobile='true' active={(location.pathname === '/order').toString()} to='/order'>Activity</Item>
                 <Item mobile='true' active={(location.pathname === '/info').toString()} to='/info'>Status</Item>
+                <Item mobile='true' active={(location.pathname === '/privatesale').toString()} to='/privatesale'>Private-Sale</Item>
+
               </div>
             </DrawerStyled>
           </Col>

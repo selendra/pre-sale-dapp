@@ -17,7 +17,7 @@ export const Container = styled.div`
 `;
 export const HeaderItems = styled.div`
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto auto;
   /* grid-gap: 40px; */
   align-items: center;
 `;

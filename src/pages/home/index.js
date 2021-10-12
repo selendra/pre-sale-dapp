@@ -276,7 +276,6 @@ export default function Home() {
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 autoFocus
-                rules={[{ required: true, message: 'Username is required!' }]}
               />
             ) : (
               <>
