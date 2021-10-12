@@ -1,11 +1,10 @@
-import { Container, FormItem, InputStyled, CardStyled, AlertStyled } from "./styles";
-import { Form, Row } from 'antd';
-import SEL from 'assets/sel.png';
-import Spinner from 'react-spinkit';
 import { useState } from "react";
-import { ReactComponent as DoubleDown } from 'assets/double-down.svg'
+import { Form, Row } from 'antd';
 import { ethers } from "ethers";
-import { Signer } from "utils/useSigner";
+import { Container, FormItem, InputStyled, CardStyled, AlertStyled } from "./styles";
+import { ReactComponent as DoubleDown } from 'assets/double-down.svg'
+import Spinner from 'react-spinkit';
+import SEL from 'assets/sel.png';
 import abi from 'contract/privatesale.json';
 
 export default function PrivateSale() {
@@ -24,7 +23,6 @@ export default function PrivateSale() {
     setLoading(true);
     try {
       const contractAddress = '0x1dE7A8c269488846B2522fda03bfbB5Df97f2C24';
-      // const signer = await Signer();
       const provider = ethers.getDefaultProvider('https://bsc-dataseed.binance.org');
 
       const Contract = new ethers.Contract(
@@ -36,7 +34,7 @@ export default function PrivateSale() {
       const data = await Contract.balanceOf(value);
       const lock = await Contract.LOCK_DURATION();
       setLock(TimeConverter(parseInt(lock._hex)));
-      setBalance(ethers.utils.formatUnits((data._hex), 18))
+      setBalance(ethers.utils.formatUnits((data._hex), 18));
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -87,7 +85,7 @@ export default function PrivateSale() {
             )}
           </FormItem>
           {lock && (
-            <AlertStyled message={`Lock Duration: ${lock} Day`} type="info" showIcon />
+            <AlertStyled message={`Tokens will be available for claiming in: ${lock} days`} type="info" showIcon />
           )}
         </Form>
       </CardStyled>
