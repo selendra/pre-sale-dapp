@@ -16,35 +16,35 @@ export default function Footer() {
           src={bitriel}
         />
         <Social>
-          <a href='https://www.facebook.com/selendrachain' target='_blank'>
+          <a href='https://www.facebook.com/selendrachain' target='_blank' rel="noreferrer">
             <img 
               src={fb}
               alt='facebook'
               width={30}
             />
           </a>
-          <a href='https://twitter.com/selendrachain' target='_blank'>
+          <a href='https://twitter.com/selendrachain' target='_blank' rel="noreferrer">
             <img 
               src={twitter}
               alt='twitter'
               width={30}
             />
           </a>
-          <a href='https://t.me/selendraorg' target='_blank'>
+          <a href='https://t.me/selendraorg' target='_blank' rel="noreferrer">
             <img 
               src={telegram}
               alt='telegram'
               width={30}
             />
           </a>
-          <a href='https://medium.com/selendra' target='_blank'>
+          <a href='https://medium.com/selendra' target='_blank' rel="noreferrer">
             <img 
               src={medium}
               alt='medium'
               width={30}
             />
           </a>
-          <a href='https://www.linkedin.com/company/selendra/' target='_blank'>
+          <a href='https://www.linkedin.com/company/selendra/' target='_blank' rel="noreferrer">
             <img 
               src={linkedin}
               alt='linkedin'
