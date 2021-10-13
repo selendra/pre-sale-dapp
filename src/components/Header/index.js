@@ -73,7 +73,7 @@ export default function Header() {
               <Item active={(location.pathname === '/').toString()} to='/'>Contribute</Item>
               <Item active={(location.pathname === '/order').toString()} to='/order'>Activity</Item>
               <Item active={(location.pathname === '/info').toString()} to='/info'>Status</Item>
-              <Item active={(location.pathname === '/privatesale').toString()} to='/privatesale'>Private-Sale</Item>
+              <Item active={(location.pathname === '/mysel').toString()} to='/mysel'>My SEL</Item>
             </HeaderItems>
           </Col>
           <Col>
@@ -88,8 +88,7 @@ export default function Header() {
                 <Item mobile='true' active={(location.pathname === '/').toString()} to='/'>Contribute</Item>
                 <Item mobile='true' active={(location.pathname === '/order').toString()} to='/order'>Activity</Item>
                 <Item mobile='true' active={(location.pathname === '/info').toString()} to='/info'>Status</Item>
-                <Item mobile='true' active={(location.pathname === '/privatesale').toString()} to='/privatesale'>Private-Sale</Item>
-
+                <Item mobile='true' active={(location.pathname === '/mysel').toString()} to='/mysel'>My SEL</Item>
               </div>
             </DrawerStyled>
           </Col>
@@ -103,7 +102,8 @@ export default function Header() {
               </div>
             ) : (
               <div>
-                <img src={metamask} alt='metamask' width='24' height='24' /> <span> Connect Wallet</span>
+                <img src={metamask} alt='bnb' width='24' height='24' /> 
+                <span> Connect Wallet</span>
               </div>
             )
           }

@@ -25,7 +25,7 @@ export default function App() {
         <Route exact path='/' component={Home} />
         <Route path='/info' component={Info} />
         <Route path='/order' component={Order} />
-        <Route path='/privatesale' component={PrivateSale} />
+        <Route path='/mysel' component={PrivateSale} />
         <Route path='/sel-pre-sale'>
           <Redirect to='/' />
         </Route>
