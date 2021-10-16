@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Form, Row } from 'antd';
+import { Form, Row, Collapse } from 'antd';
 import { ethers } from "ethers";
-import { Container, FormItem, InputStyled, CardStyled, AlertStyled } from "./styles";
+import { Container, FormItem, InputStyled, CardStyled, AlertStyled, CollapseStyled } from "./styles";
 import { ReactComponent as DoubleDown } from 'assets/double-down.svg'
 import Spinner from 'react-spinkit';
 import SEL from 'assets/sel.png';
@@ -10,17 +10,18 @@ import abi from 'contract/privatesale.json';
 export default function PrivateSale() {
   const [amount, setAmount] = useState('');
   const [balance, setBalance] = useState('');
-  const [lock, setLock] = useState('');
+  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const TimeConverter = (timestamp) => {
-    const date = Math.floor(timestamp / (3600*24));
+    const date = new Date(timestamp * 1000).toLocaleString("en-US", {timeZoneName: "short"})
     return date;
-  } 
+  }
 
   const getBalance = async(value) => {
     setAmount(value);
     setLoading(true);
+    setOrders([]);
     try {
       const contractAddress = '0x1dE7A8c269488846B2522fda03bfbB5Df97f2C24';
       const provider = ethers.getDefaultProvider('https://bsc-dataseed.binance.org');
@@ -32,9 +33,20 @@ export default function PrivateSale() {
       );
 
       const data = await Contract.balanceOf(value);
-      const lock = await Contract.LOCK_DURATION();
-      setLock(TimeConverter(parseInt(lock._hex)));
       setBalance(ethers.utils.formatUnits((data._hex), 18));
+
+      const orderIds = await Contract.investorOrderIds(value);
+
+      orderIds.map(async(i) => {
+        const data = await Contract.orders(i._hex);
+        const object = {
+          order_id: Number(i._hex),
+          order_hex: i._hex,
+          amount: ethers.utils.formatUnits(data.amount._hex, 18),
+          release_on_block: TimeConverter(Number(data.releaseOnBlock._hex)),
+        }
+        setOrders(prevItem => [...prevItem, object]);
+      })
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -46,7 +58,7 @@ export default function PrivateSale() {
     <Container>
       <center>
         <p className="home-title">Selendra's SEL</p>
-        <p className="home-sub-title">Token Private-Sale</p>
+        <p className="home-sub-title">Check SEL Token</p>
         <br />
       </center>
       <CardStyled>
@@ -84,6 +96,16 @@ export default function PrivateSale() {
               </Row>
             )}
           </FormItem>
+          <div>
+            {orders.map((i) => 
+              <CollapseStyled key={i.order_id}>
+                <Collapse.Panel header={`Order ID: ${i.order_id}`} bordered={false} key={i.order_id}>
+                  <p>Amount: {new Intl.NumberFormat().format(i.amount)}</p>
+                  <p>Release on: {i.release_on_block}</p>
+                </Collapse.Panel>
+              </CollapseStyled>
+            )}
+          </div>
           {/* {lock && (
             <AlertStyled message={`Tokens will be available for claiming in: ${lock} days`} type="info" showIcon />
           )} */}
