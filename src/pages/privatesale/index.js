@@ -84,9 +84,9 @@ export default function PrivateSale() {
               </Row>
             )}
           </FormItem>
-          {lock && (
+          {/* {lock && (
             <AlertStyled message={`Tokens will be available for claiming in: ${lock} days`} type="info" showIcon />
-          )}
+          )} */}
         </Form>
       </CardStyled>
     </Container>
