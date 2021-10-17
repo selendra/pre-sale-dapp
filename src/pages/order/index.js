@@ -22,35 +22,7 @@ export default function Order() {
     return date;
   } 
 
-  const getOrder = async() => {
-    try {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const accounts = await provider.listAccounts()
-      let signer = provider.getSigner(accounts[0]);
-      const contract = new ethers.Contract(
-        contractAddress,
-        abi,
-        signer
-      )
-
-      const data = await contract.investorOrderIds(accounts[0])
-      
-      data.map(async(i) => {
-        const data = await contract.orders(i._hex);
-        const object = {
-          order_id: parseInt(i._hex),
-          order_hex: i._hex,
-          amount: ethers.utils.formatUnits(data.amount._hex, 18),
-          release_on_block: TimeConverter(parseInt(data.releaseOnBlock._hex)),
-          claim: (data.claimed).toString(),
-        }
-        setOrders(prevItem => [...prevItem, object]);
-      })
-      setLoading(false);
-    } catch(err) {
-      console.log(err);
-    }
-  }
+  
 
   const claimToken = async(id) => {
     try {
@@ -71,6 +43,35 @@ export default function Order() {
   }
 
   useEffect(() => {
+    const getOrder = async() => {
+      try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const accounts = await provider.listAccounts()
+        let signer = provider.getSigner(accounts[0]);
+        const contract = new ethers.Contract(
+          contractAddress,
+          abi,
+          signer
+        )
+  
+        const data = await contract.investorOrderIds(accounts[0])
+        
+        data.map(async(i) => {
+          const data = await contract.orders(i._hex);
+          const object = {
+            order_id: parseInt(i._hex),
+            order_hex: i._hex,
+            amount: ethers.utils.formatUnits(data.amount._hex, 18),
+            release_on_block: TimeConverter(parseInt(data.releaseOnBlock._hex)),
+            claim: (data.claimed).toString(),
+          }
+          setOrders(prevItem => [...prevItem, object]);
+        })
+        setLoading(false);
+      } catch(err) {
+        console.log(err);
+      }
+    };
     getOrder();
   },[])
 

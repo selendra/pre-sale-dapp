@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Button, Drawer, Modal } from 'antd';
+import { Drawer } from 'antd';
 import styled from 'styled-components/macro';
 
 export const Wrapper = styled.header`
@@ -42,34 +42,6 @@ export const Logo = styled.img`
   height: 60px;
   width: auto;
 `;
-export const BtnConnect = styled(Button)`
-  width: 200px;
-  overflow: hidden;
-  height: 54px;
-  color: #fff;
-  border: 2px solid #f39d0c;
-  background: #f39d0c42;
-  border-radius: 12px;
-  padding: 0px 6px;
-  font-weight: bold;
-  img {
-    position: relative;
-    right: 10px;
-  }
-  :hover {
-    color: #fac66b;
-    border-color: #f39d0c;
-  }
-  :focus {
-    border-color: #f39d0c;
-    color: #f39d0c;
-  }
-  @media screen and (max-width: 375px) {
-    width: 120px;
-    padding: 0 20px;
-    overflow: hidden;
-  }
-`;
 export const MenuIcon = styled.img`
   cursor: pointer;
 `;
@@ -81,8 +53,4 @@ export const DrawerStyled = styled(Drawer)`
     display: none;
   }
 `;
-export const ModalStyled = styled(Modal)`
-  .ant-modal-content {
-    border-radius: 16px;
-  }
-`;
+

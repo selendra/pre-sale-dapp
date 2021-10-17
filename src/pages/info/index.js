@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { Col, Row } from 'antd';
-import { CardStyled, Container, SubTitle, Text, Title } from './styled';
+import { CardStyled, Container, SubTitle, Text } from './styled';
 import { ErrorHandling } from 'utils/errorHandling';
 import { Contract } from 'utils/useContract';
 

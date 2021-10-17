@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 import { ethers } from "ethers"
 import { Context } from "context/contex"
 import { SortOption, SortSelect } from "./styled"
