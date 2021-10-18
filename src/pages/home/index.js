@@ -66,7 +66,6 @@ export default function Home() {
       if(isTrustWallet) allowance = await AllowanceTrustWallet(tokenAddress);
       if(!isTrustWallet) allowance = await Allowance(tokenAddress);
 
-      console.log(Number(allowance._hex))
       if (!Number(allowance._hex)) {
         approve(tokenAddress);
         message.info('Please Approve to spend token!');
