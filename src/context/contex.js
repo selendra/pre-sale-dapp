@@ -65,24 +65,39 @@ export const ContextProvider = ({children}) => {
     // get user balance on select token
     const getBalance = async() => {
       try {
+        let accounts;
         let abi = ["function balanceOf(address _owner) public view returns (uint256)",];
 
-        if(selectedToken === 'bnb') {
+        if(!isTrustWallet) {
           const provider = new ethers.providers.Web3Provider(window.ethereum);
-          const accounts = await provider.listAccounts();
+          accounts = await provider.listAccounts();
+        }
+        if(isTrustWallet) {
+          const provider = new WalletConnectProvider({
+            rpc: {
+              56: "https://bsc-dataseed.binance.org"
+            },
+          });
+        
+          await provider.enable();
+        
+          const web3Provider = new providers.Web3Provider(provider);
+          accounts = await web3Provider.listAccounts();
+        }
+
+        if(selectedToken === 'bnb') {
+          const provider = ethers.getDefaultProvider('https://bsc-dataseed.binance.org');
           
           let balance = await provider.getBalance(accounts[0]);
           setSelectedTokenBalance(ethers.utils.formatEther(balance));
           // console.log(balance);
         } else {
-          const provider = new ethers.providers.Web3Provider(window.ethereum);
-          const accounts = await provider.listAccounts();
+          const provider = ethers.getDefaultProvider('https://bsc-dataseed.binance.org');
           
-          let signer = provider.getSigner(accounts[0]);
           let Contract = new ethers.Contract(
             selectedToken,
             abi,
-            signer
+            provider
           );
           const result = await Contract.balanceOf(accounts[0])
           setSelectedTokenBalance(ethers.utils.formatEther(result._hex));
