@@ -78,13 +78,13 @@ export default function Home() {
 
   const handleOrderToken = async() => {
     try {
-      console.log('checkpoint', isTrustWallet)
+      // console.log('checkpoint', isTrustWallet)
       let contract;
       setLoading(true);
 
       if(isTrustWallet) contract = await ContractTrustWallet();
       if(!isTrustWallet) contract = await Contract(); 
-      
+
       const data = await contract.orderToken(
         selectedToken,
         ethers.utils.parseUnits(amount, 18),
@@ -277,11 +277,6 @@ export default function Home() {
           <br />
         </div>
       </ModalStyled>
-      {/* <Row justify="center" align="middle">
-        <Col>
-          <Subtitle>Contribute</Subtitle>
-        </Col>
-      </Row> */}
       <br />
       <center>
         <p className="home-title">Selendra's SEL</p>

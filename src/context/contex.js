@@ -43,6 +43,9 @@ export const ContextProvider = ({children}) => {
         rpc: {
           56: "https://bsc-dataseed.binance.org"
         },
+        qrcodeModalOptions: {
+          mobileLinks: ["trust"]
+        }
       });
 
       //  Enable session (triggers QR Code modal)
