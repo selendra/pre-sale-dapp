@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ethers } from "ethers";
 import { Collapse, Empty, Row } from "antd";
 import abi from 'contract/presale.json';
@@ -11,11 +11,18 @@ import {
   BtnClaim, 
 } from "./styled";
 import Spinner from "react-spinkit";
+import { Context } from "context/contex";
+import { Contract } from "utils/useContract";
+import { ContractTrustWallet } from "utils/useContractTrustwallet";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 export default function Order() {
   const contractAddress = '0x1f1c4e7408C1A1cF2583eD155C7b88274Cf6Ab22';
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
+  const {
+    isTrustWallet
+  } = useContext(Context);
 
   const TimeConverter = (timestamp) => {
     const date = new Date(timestamp * 1000).toLocaleString("en-US", {timeZoneName: "short"})
@@ -23,7 +30,6 @@ export default function Order() {
   } 
 
   
-
   const claimToken = async(id) => {
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -45,14 +51,26 @@ export default function Order() {
   useEffect(() => {
     const getOrder = async() => {
       try {
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const accounts = await provider.listAccounts()
-        let signer = provider.getSigner(accounts[0]);
-        const contract = new ethers.Contract(
-          contractAddress,
-          abi,
-          signer
-        )
+        let contract;
+        let accounts;
+        if(!isTrustWallet) {
+          const provider = new ethers.providers.Web3Provider(window.ethereum);
+          accounts = await provider.listAccounts();
+          contract = await Contract();
+        }
+        if(isTrustWallet) { 
+          const provider = new WalletConnectProvider({
+            rpc: {
+              56: "https://bsc-dataseed.binance.org"
+            },
+          });
+        
+          await provider.enable();
+        
+          const web3Provider = new ethers.providers.Web3Provider(provider);
+          accounts = await web3Provider.listAccounts();
+          contract = await ContractTrustWallet();
+        }
   
         const data = await contract.investorOrderIds(accounts[0])
         

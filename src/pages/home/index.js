@@ -27,7 +27,6 @@ import { Allowance } from 'utils/getAllowance';
 import { Signer } from 'utils/useSigner';
 import Spinner from 'react-spinkit';
 import { ContractTrustWallet } from 'utils/useContractTrustwallet';
-import abi from 'contract/presale.json';
 import { SignerTrustWallet } from 'utils/useSignerTrustwallet';
 import { AllowanceTrustWallet } from 'utils/getAllowanceTrustWallet';
 
@@ -54,7 +53,7 @@ export default function Home() {
         .request({ method: 'eth_chainId' })
         .then(chainId => {
           if(chainId === '0x38') setChainId(true);
-        })    
+        })
       }
     }
     validate();
