@@ -23,7 +23,7 @@ export const BtnConnect = styled(Button)`
     border-color: #f39d0c;
     color: #f39d0c;
   }
-  @media screen and (max-width: 375px) {
+  @media screen and (max-width: 480px) {
     width: 120px;
     padding: 0 20px;
     overflow: hidden;
@@ -39,6 +39,11 @@ export const DropdownStyled = styled(Dropdown)`
   border-radius: 12px;
   padding: 0px 6px;
   font-weight: bold;
+  @media screen and (max-width: 480px) {
+    width: 120px;
+    padding: 0 10px;
+    overflow: hidden;
+  }
 `;
 export const Network = styled.div`
   display: flex;
