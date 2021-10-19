@@ -111,7 +111,7 @@ export default function Home() {
         Pending();
       }, 2000);
     } catch (error) {
-      console.log(error);
+      if(isTrustWallet) message.error(error.error.message);
       ErrorHandling(error);
       setLoading(false);
     }
@@ -148,7 +148,7 @@ export default function Home() {
         Pending();
       }, 2000);
     } catch (err) {
-      console.log(err);
+      if(isTrustWallet) message.error(err.error.message);
       ErrorHandling(err);
       setLoading(false);
     }
@@ -192,6 +192,7 @@ export default function Home() {
         PendingApprove();
       }, 2000);
     } catch (error) {
+      if(isTrustWallet) message.error(error.error.message);
       setLoading(false);
       ErrorHandling(error);
     }
