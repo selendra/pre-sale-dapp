@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { Col, Row } from 'antd';
-import { CardStyled, Container, SubTitle, Text, Title } from './styled';
+import { CardStyled, Container, SubTitle, Text } from './styled';
 import { ErrorHandling } from 'utils/errorHandling';
-import { Contract } from 'utils/useContract';
+import { ReadContract } from 'utils/readContract';
 
 export default function Info() {
   const [remainToken, setRemainToken] = useState('');
@@ -11,7 +11,7 @@ export default function Info() {
 
   const Fetch = async () => {
     try {
-      const contract = await Contract();
+      const contract = await ReadContract();
 
       const remaining = await contract.functions.remainingTokens();
       const sold = await contract.functions.totalDistributed();

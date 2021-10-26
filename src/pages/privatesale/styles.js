@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { Card, Input, Form, Alert, Collapse } from 'antd';
+import { Card, Input, Form, Collapse } from 'antd';
 
 export const Container = styled.div`
   max-width: 500px;
@@ -41,12 +41,27 @@ export const InputStyled = styled(Input)`
     box-shadow: none !important;
   }
 `;
-export const AlertStyled = styled(Alert)`
-  border-radius: 8px;
-  transition: .5s;
-  background: transparent;
-  .ant-alert-message {
+export const CollapseStyled = styled(Collapse)`
+  align-items: center;
+  background-color: #0D1225;
+  border: none;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  .ant-collapse-item {
+    border: none;
+  }
+  .ant-collapse-item > .ant-collapse-header {
     color: #fff;
+    height: 70px;
+    line-height: 45px;
+  }
+  .ant-collapse-content {
+    background-color: #0D1225;
+  }
+  .ant-collapse-item:last-child > .ant-collapse-content {
+    color: #fff;
+    border: none;
+    border-radius: 16px;
   }
 `
 export const CollapseStyled = styled(Collapse)`

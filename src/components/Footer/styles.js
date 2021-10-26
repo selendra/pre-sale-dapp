@@ -21,6 +21,9 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 20px 0px;
+  @media screen and (min-width: 480px) {
+    padding: 20px 10px;
+  }
 `;
 export const Logo = styled.img`
   height: 50px;

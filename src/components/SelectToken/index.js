@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect } from "react"
 import { ethers } from "ethers"
 import { Context } from "context/contex"
 import { SortOption, SortSelect } from "./styled"
@@ -8,7 +8,8 @@ import usdt from 'assets/usdt.png'
 import dai from 'assets/dai.png'
 import eth from 'assets/eth.png'
 import { ErrorHandling } from "utils/errorHandling"
-import { Contract } from "utils/useContract"
+// import { Contract } from "utils/useContract"
+import { ReadContract } from "utils/readContract"
 
 export default function SelectToken() {
   const { setSelectedToken, setSelectedTokenPrice, setLoading } = useContext(Context);
@@ -35,7 +36,7 @@ export default function SelectToken() {
     setSelectedToken(value);
     try {
       setLoading(true);
-      const contract = await Contract();
+      const contract = await ReadContract();
   
       if(value === 'bnb') {
         const data = await contract.getPrice();

@@ -26,6 +26,9 @@ import { Contract } from 'utils/useContract';
 import { Allowance } from 'utils/getAllowance';
 import { Signer } from 'utils/useSigner';
 import Spinner from 'react-spinkit';
+import { ContractTrustWallet } from 'utils/useContractTrustwallet';
+import { SignerTrustWallet } from 'utils/useSignerTrustwallet';
+import { AllowanceTrustWallet } from 'utils/getAllowanceTrustWallet';
 
 export default function Home() {
   const contractAddress = '0x1f1c4e7408C1A1cF2583eD155C7b88274Cf6Ab22';
@@ -34,6 +37,7 @@ export default function Home() {
     selectedTokenBalance,
     selectedTokenPrice,
     priceLoading,
+    isTrustWallet
   } = useContext(Context);
 
   const [amount, setAmount] = useState('');
@@ -42,19 +46,26 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [chainId, setChainId] = useState(false);
   
-  useEffect(async() => {
-    await window.ethereum
-      .request({ method: 'eth_chainId' })
-      .then(chainId => {
-        if(chainId === '0x38') setChainId(true);
-      })
+  useEffect(() => {
+    const validate = async() => {
+      if(window.ethereum) {
+        await window.ethereum
+        .request({ method: 'eth_chainId' })
+        .then(chainId => {
+          if(chainId === '0x38') setChainId(true);
+        })
+      }
+    }
+    validate();
   },[])
 
   const checkAllowance = async (tokenAddress) => {
     try {
-      const allowance = await Allowance(tokenAddress);
+      let allowance;
+      if(isTrustWallet) allowance = await AllowanceTrustWallet(tokenAddress);
+      if(!isTrustWallet) allowance = await Allowance(tokenAddress);
 
-      if (!parseInt(allowance._hex)) {
+      if (!Number(allowance._hex)) {
         approve(tokenAddress);
         message.info('Please Approve to spend token!');
       } else {
@@ -65,10 +76,15 @@ export default function Home() {
     }
   };
 
-  const handleOrderToken = async () => {
+  const handleOrderToken = async() => {
     try {
+      // console.log('checkpoint', isTrustWallet)
+      let contract;
       setLoading(true);
-      const contract = await Contract();
+
+      if(isTrustWallet) contract = await ContractTrustWallet();
+      if(!isTrustWallet) contract = await Contract(); 
+
       const data = await contract.orderToken(
         selectedToken,
         ethers.utils.parseUnits(amount, 18),
@@ -95,19 +111,23 @@ export default function Home() {
         Pending();
       }, 2000);
     } catch (error) {
+      if(isTrustWallet) message.error(error.error.message);
       ErrorHandling(error);
       setLoading(false);
     }
   };
 
-  const handleOrderBNB = async () => {
+  const handleOrderBNB = async() => {
     try {
       setLoading(true);
-      const contract = await Contract();
+      let contract;
+      if(isTrustWallet) contract = await ContractTrustWallet();
+      if(!isTrustWallet) contract = await Contract();
+
       const data = await contract.order(slippage, {
         value: ethers.utils.parseUnits(amount, 18),
       });
-
+      
       async function Pending() {
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const result = await provider.getTransactionReceipt(data.hash);
@@ -128,6 +148,7 @@ export default function Home() {
         Pending();
       }, 2000);
     } catch (err) {
+      if(isTrustWallet) message.error(err.error.message);
       ErrorHandling(err);
       setLoading(false);
     }
@@ -135,12 +156,15 @@ export default function Home() {
 
   async function approve(tokenAddress) {
     try {
+      let signer;
       let abi = [
         'function approve(address _spender, uint256 _value) public returns (bool success)',
       ];
 
       setLoading(true);
-      const signer = await Signer();
+      if(isTrustWallet) signer = await SignerTrustWallet();
+      if(!isTrustWallet) signer = await Signer();
+
       let TokenContract = new ethers.Contract(tokenAddress, abi, signer);
 
       const data = await TokenContract.approve(
@@ -168,6 +192,7 @@ export default function Home() {
         PendingApprove();
       }, 2000);
     } catch (error) {
+      if(isTrustWallet) message.error(error.error.message);
       setLoading(false);
       ErrorHandling(error);
     }
@@ -200,7 +225,6 @@ export default function Home() {
     <Container>
       <ModalStyled
         visible={modal}
-        title="Settings"
         footer=""
         title=""
         onCancel={() => setModal(false)}
@@ -254,11 +278,6 @@ export default function Home() {
           <br />
         </div>
       </ModalStyled>
-      {/* <Row justify="center" align="middle">
-        <Col>
-          <Subtitle>Contribute</Subtitle>
-        </Col>
-      </Row> */}
       <br />
       <center>
         <p className="home-title">Selendra's SEL</p>
@@ -270,24 +289,14 @@ export default function Home() {
           <FormItem
             label={'Balance: ' + Number(selectedTokenBalance).toFixed(3)}
           >
-            {chainId ? (
-              <InputStyled
-                placeholder="0.00"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                autoFocus
-              />
-            ) : (
-              <>
-                <InputStyled
-                  placeholder="0.00"
-                  readOnly
-                  autoFocus
-                />
-              </>
-            )}
+            <InputStyled
+              placeholder="0.00"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              autoFocus
+            />
             <SelectToken />
-            {!chainId && <AlertStyled banner message="Please connect to BSC network" type="error" />}
+            {/* {!chainId && <AlertStyled banner message="Please connect to BSC network" type="error" />} */}
           </FormItem>
           <Row justify="center">
             <Swap style={{ marginBottom: '20px' }} />
@@ -305,7 +314,7 @@ export default function Home() {
                   value={EstimateSEL(amount).toFixed(2)}
                 />
                 <div style={{ width: '35%', display: 'inline' }}>
-                  <img src={SEL} width="auto" height="32" />
+                  <img src={SEL} alt='SEL' width="auto" height="32" />
                   <span style={{ color: '#fff', marginLeft: '10px' }}>SEL</span>
                 </div>
               </Row>
@@ -335,7 +344,7 @@ export default function Home() {
       <p style={{wordBreak: 'break-word'}}>
         A simple method for participation to participate in presale. Please follow the steps below: <br />
         1. Connect to Metamask. <br />
-        2. Change network to BSC, if don't have BSC yet, <a href='https://academy.binance.com/en/articles/connecting-metamask-to-binance-smart-chain' target='_blank'>follow link how to add bsc to metamask.</a> <br />
+        2. Change network to BSC, if don't have BSC yet, <a href='https://academy.binance.com/en/articles/connecting-metamask-to-binance-smart-chain' target='_blank' rel='noreferrer'>follow link how to add bsc to metamask.</a> <br />
         3. Make sure you have fund available at least {'>'} $1000 worth of crypto or stable coins. <br />
         4. Enter the contribution amount in BNB, BUSD, USDT, DAI or ETH. <br />
         5. Press Contribute. <br />
