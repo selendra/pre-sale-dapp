@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Row, Collapse } from 'antd';
 import { ethers } from "ethers";
-import { Container, FormItem, InputStyled, CardStyled, AlertStyled, CollapseStyled } from "./styles";
+import { Container, FormItem, InputStyled, CardStyled, CollapseStyled } from "./styles";
 import { ReactComponent as DoubleDown } from 'assets/double-down.svg'
 import Spinner from 'react-spinkit';
 import SEL from 'assets/sel.png';
@@ -58,7 +58,7 @@ export default function PrivateSale() {
     <Container>
       <center>
         <p className="home-title">Selendra's SEL</p>
-        <p className="home-sub-title">Check SEL Token</p>
+        <p className="home-sub-title">Please paste your address to view your token holding</p>
         <br />
       </center>
       <CardStyled>
@@ -90,7 +90,7 @@ export default function PrivateSale() {
                   value={new Intl.NumberFormat().format(balance)}
                 />
                 <div style={{ width: '20%', display: 'inline' }}>
-                  <img src={SEL} width="auto" height="32" />
+                  <img src={SEL} alt='SEL' width="auto" height="32" />
                   <span style={{ color: '#fff', marginLeft: '10px' }}>SEL</span>
                 </div>
               </Row>
@@ -106,9 +106,6 @@ export default function PrivateSale() {
               </CollapseStyled>
             )}
           </div>
-          {/* {lock && (
-            <AlertStyled message={`Tokens will be available for claiming in: ${lock} days`} type="info" showIcon />
-          )} */}
         </Form>
       </CardStyled>
     </Container>

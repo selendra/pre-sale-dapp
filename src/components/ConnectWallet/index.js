@@ -15,7 +15,7 @@ import { ReactComponent as Logout } from 'assets/logout.svg'
 
 
 export default function ConnectWallet() {
-  const { account, connectMetamask, connectTrustWallet, disconnectWallet } = useContext(Context);
+  const { account, connectMetamask, connectTrustWallet, disconnectWallet, isTrustWallet } = useContext(Context);
   const [modal, setModal] = useState(false);
 
   const menuDropdown = (
@@ -48,7 +48,12 @@ export default function ConnectWallet() {
         account ? (
           <DropdownStyled overlay={menuDropdown}>
             <Row align='middle' justify='center'>
-              <Wallet />
+              {
+                isTrustWallet ? 
+                  <img src={trustwallet} alt='trustwallet' width='24' />
+                :
+                  <img src={metamask} alt='metamask' width='24' />
+              }
               <span style={{marginLeft: '4px'}}>{`0x...${account.slice(-5)}`}</span>
             </Row>
           </DropdownStyled>
@@ -66,7 +71,7 @@ export default function ConnectWallet() {
         <ModalComponent
           width={420}
           visible={modal}
-          title='Connect Wallet'
+          title=''
           onCancel={() => setModal(false)}
         >
           <Row>

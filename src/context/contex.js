@@ -111,7 +111,7 @@ export const ContextProvider = ({children}) => {
       }
     };
     getBalance(selectedToken);
-  },[selectedToken])
+  },[selectedToken]);
 
   return(
     <Context.Provider
