@@ -113,7 +113,7 @@ export default function Order() {
               orders.map((i) => 
                 <CollapseStyled key={i.order_id}>
                   <Collapse.Panel header={`Order ID: ${i.order_id}`} bordered={false} key={i.order_id}>
-                    <p>Amount: {i.amount}</p>
+                    <p>Amount: {new Intl.NumberFormat().format(i.amount)}</p>
                     <p>Release on: {i.release_on_block}</p>
                     { 
                       (i.claim === "true") ? (
