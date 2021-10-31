@@ -3,7 +3,7 @@ import abi from 'contract/presale.json';
 import { Signer } from "./useSigner";
 
 export async function Contract() {
-  const contractAddress = '0x1f1c4e7408C1A1cF2583eD155C7b88274Cf6Ab22';
+  const contractAddress = '0xEbc71fA80a0B6D41c944Ed96289e530D0A92a31F';
   const signer = await Signer();
 
   const Contract = new ethers.Contract(
