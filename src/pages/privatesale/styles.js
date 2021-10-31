@@ -64,26 +64,3 @@ export const CollapseStyled = styled(Collapse)`
     border-radius: 16px;
   }
 `
-export const CollapseStyled = styled(Collapse)`
-  align-items: center;
-  background-color: #0D1225;
-  border: none;
-  border-radius: 16px;
-  margin-bottom: 20px;
-  .ant-collapse-item {
-    border: none;
-  }
-  .ant-collapse-item > .ant-collapse-header {
-    color: #fff;
-    height: 70px;
-    line-height: 45px;
-  }
-  .ant-collapse-content {
-    background-color: #0D1225;
-  }
-  .ant-collapse-item:last-child > .ant-collapse-content {
-    color: #fff;
-    border: none;
-    border-radius: 16px;
-  }
-`
