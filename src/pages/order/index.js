@@ -17,7 +17,7 @@ import { ContractTrustWallet } from "utils/useContractTrustwallet";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 
 export default function Order() {
-  const contractAddress = '0x1f1c4e7408C1A1cF2583eD155C7b88274Cf6Ab22';
+  const contractAddress = '0xEbc71fA80a0B6D41c944Ed96289e530D0A92a31F';
   const [loading, setLoading] = useState(true);
   const [orders, setOrders] = useState([]);
   const {
