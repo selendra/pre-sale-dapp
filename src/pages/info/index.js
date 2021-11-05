@@ -8,6 +8,8 @@ import { ReadContract } from 'utils/readContract';
 export default function Info() {
   const [remainToken, setRemainToken] = useState('');
   const [tokenSold, setTokenSold] = useState('');
+  let lastRemainToken = ethers.utils.formatUnits('376889953084070095238095239', 18);
+  let lastTokenSold = ethers.utils.formatUnits('101164915929904761904761', 18);
 
   const Fetch = async () => {
     try {
@@ -40,13 +42,13 @@ export default function Info() {
         <Col md={{ span: 10, offset: 1 }} lg={{ span: 7, offset: 0 }}>
           <CardStyled>
             <SubTitle>Token Remaining</SubTitle>
-            <Text>{new Intl.NumberFormat().format(remainToken)} SEL</Text>
+            <Text>{new Intl.NumberFormat().format(Number(lastRemainToken) + Number(remainToken))} SEL</Text>
           </CardStyled>
         </Col>
         <Col md={12} lg={7}>
           <CardStyled>
             <SubTitle>Token Sold</SubTitle>
-            <Text>{new Intl.NumberFormat().format(tokenSold)} SEL</Text>
+            <Text>{new Intl.NumberFormat().format(Number(tokenSold) + Number(lastTokenSold))} SEL</Text>
           </CardStyled>
         </Col>
       </Row>
