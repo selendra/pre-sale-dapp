@@ -5,12 +5,12 @@ export const Container = styled.div`
   max-width: 500px;
   min-height: calc(100vh - 120px);
   margin: auto;
-  padding: 14rem 0;
+  padding: 0rem 0;
   p {
     font-size: 18px;
   }
   @media screen and (max-width: 500px) {
-    padding: 10rem 10px;
+    padding: 0rem 10px;
   }
 `;
 export const CardStyled = styled(Card)`

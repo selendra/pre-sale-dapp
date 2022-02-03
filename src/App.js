@@ -15,6 +15,7 @@ import PrivateSale from "pages/privatesale";
 import Footer from "components/Footer";
 import Header from "components/Header";
 import ModalComponent from "components/Modal";
+import AlertComponent from "components/Alert";
 
 
 export default function App() {
@@ -42,6 +43,7 @@ export default function App() {
     <div>
       <Router>
         <Header />
+        <AlertComponent />
         <Switch>
           <Route exact path='/' component={Home} />
           <Route path='/info' component={Info} />

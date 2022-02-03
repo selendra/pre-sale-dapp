@@ -334,6 +334,7 @@ export default function Home() {
             type="ghost"
             loading={loading}
             onClick={handleContribute}
+            disabled
           >
             Contribute
           </BtnContribute>

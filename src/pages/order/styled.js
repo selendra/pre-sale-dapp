@@ -5,9 +5,9 @@ export const Container = styled.div`
   max-width: 400px;
   min-height: calc(100vh - 120px);
   margin: auto;
-  padding: 14rem 0;
+  padding: 0rem 0;
   @media screen and (max-width: 500px) {
-    padding: 10rem 10px;
+    padding: 0rem 10px;
   }
 `
 export const CardStyled = styled.div`
